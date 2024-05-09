@@ -43,13 +43,13 @@ app.*.map.json
 /android/app/release
 
 # Default Flutter Project
-/android/
-/ios
-/linux
-/macos
-/test
-/web
-/windows
-.metadata
-analysis_options.yaml
-pubspec.lock
+# /android/
+# /ios
+# /linux
+# /macos
+# /test
+# /web
+# /windows
+# .metadata
+# analysis_options.yaml
+# pubspec.lock
