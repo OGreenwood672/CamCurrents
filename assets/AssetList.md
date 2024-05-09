@@ -1,7 +1,7 @@
 # Assets
 ## Weather Icons
-- **Sprite Sheet containing Weather, Thermometer, Flags and Boat**: conditions.png
+- **Sprite Sheet containing Weather, Thermometer, Flags and Boat**: ./images/conditions.png
 
 ## Backgrounds
-- **Sunny Background**: sunny_bg.png
-- **Cloudy Background**: cloudy_bg.png
+- **Sunny Background**: ./images/sunny_bg.png
+- **Cloudy Background**: ./images/cloudy_bg.png
