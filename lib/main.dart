@@ -1,3 +1,4 @@
+import 'package:camcurrents/data.dart';
 import 'package:flutter/material.dart';
 //haha lol ...
 void main() {
@@ -64,6 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+      fetchForecast("2024-05-09")
+        .then((data) => print(data));
       _counter++;
     });
   }
