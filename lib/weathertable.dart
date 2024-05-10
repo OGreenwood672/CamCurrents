@@ -16,7 +16,7 @@ class WeatherTable extends StatelessWidget {
             ),
           ),
           rows: List.generate(
-            5, // Assuming 5 days
+            2, // Assuming 5 days
             (dayIndex) => DataRow(
               cells: List.generate(
                 24, // Assuming 24 hours
