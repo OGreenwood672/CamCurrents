@@ -7,7 +7,7 @@ class WeatherTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue, // Set the background color to blue
-      height: 250,
+      height: 220,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -34,10 +34,10 @@ class WeatherCard extends StatelessWidget {
   final String temperature;
 
   const WeatherCard({
-    super.key,
     required this.hour,
     required this.precipitation,
     required this.temperature,
+    super.key,
   });
 
   @override
@@ -58,47 +58,21 @@ class WeatherCard extends StatelessWidget {
                   fontWeight: FontWeight.bold, // Make it bold
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/temperature-image-holder.png', // Path to temperature image
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.fill,
-                      ),
-                      const SizedBox(width: 5), // Add spacing between image and text
-                      Text(
-                        precipitation,
-                        style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
-                      ),
-                    ],
+                children:[
+                  ImageWithValueRow(
+                    imagePath: 'assets/images/temperature-image-holder.png',
+                    value: precipitation,
                   ),
-                ],
+                ]
               ),
               const SizedBox(height: 20),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/temperature-image-holder.png', // Path to temperature image
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.fill,
-                      ),
-                      const SizedBox(width: 5), // Add spacing between image and text
-                      Text(
-                        temperature,
-                        style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
-                      ),
-                    ],
+                children:[              
+                  ImageWithValueRow(
+                    imagePath: 'assets/images/temperature-image-holder.png',
+                    value: temperature,
                   ),
                 ],
               ),
@@ -106,6 +80,40 @@ class WeatherCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ImageWithValueRow extends StatelessWidget {
+  final String imagePath;
+  final String value;
+
+  const ImageWithValueRow({
+    required this.imagePath,
+    required this.value,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          imagePath,
+          width: 60,
+          height: 60,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(width: 5), // Add spacing between image and text
+        Center( // Center align the text
+          child: Text(
+            value,
+            style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
+          ),
+        ),
+      ],
     );
   }
 }
