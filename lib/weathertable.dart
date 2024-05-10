@@ -17,8 +17,8 @@ class WeatherTable extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: WeatherCard(
                 hour: index,
-                precipitation: 'Precip_Value', // Replace with actual value
-                temperature: 'Temp_Value', // Replace with actual value
+                precipitation: 'PrcpVal', // Replace with actual value
+                temperature: 'TempVal', // Replace with actual value
               ),
             ),
           ),
@@ -49,33 +49,57 @@ class WeatherCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('$hour:00'),
-              const SizedBox(height: 10),
+              Text(
+                '$hour:00',
+                style: const TextStyle(
+                  fontSize: 18, // Increase font size
+                  fontWeight: FontWeight.bold, // Make it bold
+                ),
+              ),
+              const SizedBox(height: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   'assets/images/temperature-image-holder.png', // Path to precipitation image
-                  //   width: 50,
-                  //   height: 50,
-                  // ),
-                  const Text('Precipitation'),
-                  Text(precipitation), // Replace with actual value
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/temperature-image-holder.png', // Path to temperature image
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.fill,
+                      ),
+                      const SizedBox(width: 5), // Add spacing between image and text
+                      Text(
+                        precipitation,
+                        style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   'assets/images/temperature-image-holder.png', // Path to temperature image
-                  //   width: 50,
-                  //   height: 50,
-                  // ),
-                  const Text('Temperature'),
-                  Text(temperature), // Replace with actual value
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/temperature-image-holder.png', // Path to temperature image
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.fill,
+                      ),
+                      const SizedBox(width: 5), // Add spacing between image and text
+                      Text(
+                        temperature,
+                        style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],
