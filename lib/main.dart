@@ -55,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  //int _counter = 0;
   int _selectedIndex = 0;
 
   void _incrementCounter() {
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       fetchForecast("2024-05-09")
         .then((data) => print(data));
-      _counter++;
+      //_counter++;
     });
   }
   @override
