@@ -7,25 +7,24 @@ import 'package:flutter/material.dart';
 
 class Day extends StatefulWidget {
 
-  final DateTime _date;
+  final Map<int, Map<int, Map<String, dynamic>>> _weatherData;
 
-  const Day({super.key, required DateTime date}) : _date=date;
+  const Day({super.key, required Map<int, Map<int, Map<String, dynamic>>> weatherData}) : _weatherData=weatherData;
 
  @override
-  State<Day> createState() => _DayState(_date);
+  State<Day> createState() => _DayState(_weatherData);
 }
 
 class _DayState extends State<Day>{
   
-  final DateTime _date;
+  final Map<int, Map<int, Map<String, dynamic>>> _weatherData;
 
-  _DayState(DateTime date) : 
-    _date = date;
+  _DayState(Map<int, Map<int, Map<String, dynamic>>> weatherData) : 
+    _weatherData = weatherData;
 
   @override
   Widget build(BuildContext context) {
 
-    var weather = fetchForecast(_date);
 
     return SingleChildScrollView(
         child: Column(
