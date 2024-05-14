@@ -5,23 +5,29 @@ class WeatherTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int currentHour = DateTime.now().hour;
+    int endHour = currentHour + 12;
+    if (endHour > 23) {
+      endHour = 23; // Ensure it doesn't exceed 23:00
+    }
+    List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
+
     return Container(
       color: Colors.blue, // Set the background color to blue
       height: 220,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: List.generate(
-            12, // next 12 hours
-            (index) => Padding(
+          children: hours.map((hour) {
+            return Padding(
               padding: const EdgeInsets.all(8.0),
               child: WeatherCard(
-                hour: index,
-                precipitation: 'PrcpVal', // Replace with actual value
-                temperature: 'TempVal', // Replace with actual value
+                hour: hour,
+                precipitation: 'Val%', // Replace with actual value
+                temperature: 'Val°C', // Replace with actual value
               ),
-            ),
-          ),
+            );
+          }).toList(),
         ),
       ),
     );
@@ -29,6 +35,7 @@ class WeatherTable extends StatelessWidget {
 }
 
 class WeatherCard extends StatelessWidget {
+  //weather card represents each individual card (representing one hour of time)
   final int hour;
   final String precipitation;
   final String temperature;
@@ -62,12 +69,12 @@ class WeatherCard extends StatelessWidget {
               Column(
                 children:[
                   ImageWithValueRow(
-                    imagePath: 'assets/images/temperature-image-holder.png',
+                    imagePath: 'assets/images/precip-image.png',
                     value: precipitation,
                   ),
                 ]
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Column(
                 children:[              
                   ImageWithValueRow(
@@ -97,20 +104,24 @@ class ImageWithValueRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-          imagePath,
-          width: 60,
-          height: 60,
-          fit: BoxFit.fill,
+        Expanded(
+          child: Image.asset(
+            imagePath,
+            width: 40,
+            height: 60,
+            fit: BoxFit.fill,
+          ),
         ),
         const SizedBox(width: 5), // Add spacing between image and text
-        Center( // Center align the text
-          child: Text(
-            value,
-            style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
+        Expanded(
+          child: Center( // Center align the text
+            child: Text(
+              value,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18), // Make value bold and adjust font size
+              
+            ),
           ),
         ),
       ],

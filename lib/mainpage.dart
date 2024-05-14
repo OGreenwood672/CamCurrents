@@ -1,6 +1,6 @@
-import 'package:camcurrents/data.dart';
 import 'package:flutter/material.dart';
 import 'package:camcurrents/weathertable.dart';
+import 'package:camcurrents/extradetails.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,10 +13,38 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
 
   int selectedDay = 0;
+  double dayIconSize = 40;
 
-  Map<String, dynamic> day = {
-    "day": "Monday",
-  };
+  List<Map<String, dynamic>> days = [
+    {
+      "day": "Monday",
+      "nick": "Mon"
+    },
+    {
+      "day": "Tuesday",
+      "nick": "Tue"
+    },
+    {
+      "day": "Wednesday",
+      "nick": "Wed"
+    }
+  ];
+
+  Widget buildNavigationDestination(int day) {
+    return NavigationDestination(
+      selectedIcon: ColorFiltered(
+        colorFilter: const ColorFilter.mode(Color.fromARGB(255, 27, 106, 234), BlendMode.srcIn),
+        child: Image.asset(
+          'assets/icons/${days[day]["day"].toLowerCase()}.png',
+          width: dayIconSize,
+          height: dayIconSize,
+        ),
+      ),
+      icon: Image.asset('assets/icons/${days[day]["day"].toLowerCase()}.png', width: dayIconSize, height: dayIconSize),
+      label: "",
+    );
+  }
+
   
   @override
   Widget build(BuildContext context) {
@@ -24,7 +52,7 @@ class MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(day["day"]),
+        title: Text(days[selectedDay]["day"]),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -81,25 +109,12 @@ class MainPageState extends State<MainPage> {
             selectedDay = index;
           });
         },
-        indicatorColor: Colors.amber,
+        // indicatorColor: Colors.amber,
         selectedIndex: selectedDay,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
-          ),
-          NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
-          ),
+        destinations: <Widget>[
+          buildNavigationDestination(0),
+          buildNavigationDestination(1),
+          buildNavigationDestination(2),
         ],
       ),
     );
