@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 
 //* Get Hourly Forecast of Day by Date
-Future<List<dynamic>?> fetchForecast(String date) async {
+Future<List<dynamic>?> fetchForecastString(String date) async {
   try {
 
     var resp = await http.get(Uri.parse('https://cam-currents-backend-ogreenwood672s-projects.vercel.app/get-data-by-date?date=$date'));
@@ -20,4 +20,12 @@ Future<List<dynamic>?> fetchForecast(String date) async {
     throw Error();
   }
   return [];
+}
+
+Future<List<dynamic>?> fetchForecast(DateTime date) async {
+  int day = date.day;
+  int month = date.month;
+  int year = date.year;
+  return fetchForecastString("$day-$month-$year");
+
 }
