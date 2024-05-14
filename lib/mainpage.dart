@@ -13,6 +13,10 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
 
   int selectedDay = 0;
+
+  Map<String, dynamic> day = {
+    "day": "Monday",
+  };
   
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text("Monday"),
+        title: Text(day["day"]),
       ),
       body: SingleChildScrollView(
         child: Column(
