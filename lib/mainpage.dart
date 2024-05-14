@@ -14,9 +14,20 @@ class MainPageState extends State<MainPage> {
 
   int selectedDay = 0;
 
-  Map<String, dynamic> day = {
-    "day": "Monday",
-  };
+  List<Map<String, dynamic>> days = [
+    {
+      "day": "Monday",
+      "nick": "Mon"
+    },
+    {
+      "day": "Tuesday",
+      "nick": "Tue"
+    },
+    {
+      "day": "Wednesday",
+      "nick": "Wed"
+    }
+  ];
   
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,7 @@ class MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(day["day"]),
+        title: Text(days[0]["day"]),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -58,22 +69,18 @@ class MainPageState extends State<MainPage> {
         },
         indicatorColor: Colors.amber,
         selectedIndex: selectedDay,
-        destinations: const <Widget>[
+        destinations: <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            icon: const SizedBox.shrink(),
+            label: days[0]["nick"],
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
+            icon: const SizedBox.shrink(),
+            label: days[1]["nick"],
           ),
           NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
+            icon: const SizedBox.shrink(),
+            label: days[2]["nick"],
           ),
         ],
       ),
