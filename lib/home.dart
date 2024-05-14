@@ -2,43 +2,25 @@ import 'package:camcurrents/data.dart';
 import 'package:flutter/material.dart';
 import 'package:camcurrents/weathertable.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => MainPageState();
 }
 
 
+class MainPageState extends State<MainPage> {
 
-
-class _MyHomePageState extends State<MyHomePage> {
-  //int _counter = 0;
-  int _selectedIndex = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      fetchForecast("2024-05-09")
-        // ignore: avoid_print
-        .then((data) => print(data));
-      //_counter++;
-    });
-  }
+  int selectedDay = 0;
+  
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
+    // This method is rerun every time setState is called
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title),
+        title: const Text("Monday"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,9 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Top Section'),
               ),
             ),
-            // Middle section with the weather table
             const WeatherTable(),
-            // Bottom section
             Container(
               color: Colors.white,
               height: 500,
@@ -66,19 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            _selectedIndex = index;
+            selectedDay = index;
           });
         },
         indicatorColor: Colors.amber,
-        selectedIndex: _selectedIndex,
+        selectedIndex: selectedDay,
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
