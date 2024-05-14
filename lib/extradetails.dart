@@ -10,6 +10,7 @@ class ExtraDetails extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 30),
           Center(
@@ -18,7 +19,7 @@ class ExtraDetails extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           ),
@@ -29,7 +30,7 @@ class ExtraDetails extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
            ),
