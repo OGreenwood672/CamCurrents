@@ -1,4 +1,3 @@
-import 'package:camcurrents/data.dart';
 import 'package:flutter/material.dart';
 import 'package:camcurrents/weathertable.dart';
 
@@ -13,6 +12,7 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
 
   int selectedDay = 0;
+  double dayIconSize = 40;
 
   List<Map<String, dynamic>> days = [
     {
@@ -28,6 +28,22 @@ class MainPageState extends State<MainPage> {
       "nick": "Wed"
     }
   ];
+
+  Widget buildNavigationDestination(int day) {
+    return NavigationDestination(
+      selectedIcon: ColorFiltered(
+        colorFilter: const ColorFilter.mode(Color.fromARGB(255, 27, 106, 234), BlendMode.srcIn),
+        child: Image.asset(
+          'assets/icons/${days[day]["day"].toLowerCase()}.png',
+          width: dayIconSize,
+          height: dayIconSize,
+        ),
+      ),
+      icon: Image.asset('assets/icons/${days[day]["day"].toLowerCase()}.png', width: dayIconSize, height: dayIconSize),
+      label: "",
+    );
+  }
+
   
   @override
   Widget build(BuildContext context) {
@@ -35,7 +51,7 @@ class MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(days[0]["day"]),
+        title: Text(days[selectedDay]["day"]),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -67,21 +83,12 @@ class MainPageState extends State<MainPage> {
             selectedDay = index;
           });
         },
-        indicatorColor: Colors.amber,
+        // indicatorColor: Colors.amber,
         selectedIndex: selectedDay,
         destinations: <Widget>[
-          NavigationDestination(
-            icon: const SizedBox.shrink(),
-            label: days[0]["nick"],
-          ),
-          NavigationDestination(
-            icon: const SizedBox.shrink(),
-            label: days[1]["nick"],
-          ),
-          NavigationDestination(
-            icon: const SizedBox.shrink(),
-            label: days[2]["nick"],
-          ),
+          buildNavigationDestination(0),
+          buildNavigationDestination(1),
+          buildNavigationDestination(2),
         ],
       ),
     );
