@@ -62,7 +62,7 @@ class MainPageState extends State<MainPage> {
                 Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/sunny_bg.png'),
                   fit: BoxFit.fill,
@@ -76,21 +76,21 @@ class MainPageState extends State<MainPage> {
           children: <Widget>[
             // Top section
             Container(
-              color: Color.fromARGB(0, 0, 0, 0),
+              color: const Color.fromARGB(0, 0, 0, 0),
               height: 500,
               child: const Center(
                 child: Text('Top Section'),
               ),
             ),
             const WeatherTable(),
-
+            const ExtraDetails(),
             ],
             )
           ],
           ),
      
         Container(
-              color: Color.fromARGB(0, 0, 0, 0),
+              color: const Color.fromARGB(0, 0, 0, 0),
               height: 500,
               child: const Center(
                 child: Text('Bottom Section'),
