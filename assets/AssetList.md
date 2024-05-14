@@ -5,3 +5,4 @@
 ## Backgrounds
 - **Sunny Background**: ./images/sunny_bg.png
 - **Cloudy Background**: ./images/cloudy_bg.png
+- **Plain Underwater Background**: ./images/underwater_bg.png

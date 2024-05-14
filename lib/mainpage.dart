@@ -28,26 +28,51 @@ class MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/sunny_bg.png'),
+                  fit: BoxFit.fill,
+                )
+              ),
+    
+            ),
+            
+            Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             // Top section
             Container(
-              color: Colors.white,
-              height: 300,
+              color: Color.fromARGB(0, 0, 0, 0),
+              height: 500,
               child: const Center(
                 child: Text('Top Section'),
               ),
             ),
             const WeatherTable(),
-            Container(
-              color: Colors.white,
+
+            ],
+            )
+          ],
+          ),
+     
+        Container(
+              color: Color.fromARGB(0, 0, 0, 0),
               height: 500,
               child: const Center(
                 child: Text('Bottom Section'),
               ),
             ),
           ],
-        ),
+
+        )
+        
+        
       ),
     
       bottomNavigationBar: NavigationBar(
