@@ -69,8 +69,8 @@ class WeatherCard extends StatelessWidget {
               Column(
                 children:[
                   ImageWithValueRow(
-                    //imagePath: 'assets/images/precip-image.png',
-                    imagePath: 'assets/images/temperature-image-holder.png',
+                    imagePath: 'assets/images/precip-image.png',
+                    //imagePath: 'assets/images/temperature-image-holder.png',
                     value: precipitation,
                   ),
                 ]
@@ -110,7 +110,7 @@ class ImageWithValueRow extends StatelessWidget {
         Expanded(
           child: Image.asset(
             imagePath,
-            width: 60,
+            width: 40,
             height: 60,
             fit: BoxFit.fill,
           ),
@@ -120,7 +120,8 @@ class ImageWithValueRow extends StatelessWidget {
           child: Center( // Center align the text
             child: Text(
               value,
-              style: const TextStyle(fontWeight: FontWeight.bold), // Make value bold
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18), // Make value bold
+              
             ),
           ),
         ),
