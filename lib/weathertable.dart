@@ -13,7 +13,7 @@ class WeatherTable extends StatelessWidget {
     List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
 
     return Container(
-      color: Colors.blue, // Set the background color to blue
+      color: Colors.transparent, // Set the background color to blue
       height: 220,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
