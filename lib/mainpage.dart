@@ -60,44 +60,45 @@ class MainPageState extends State<MainPage> {
             Stack(
               children: [
                 Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/sunny_bg.png'),
-                  fit: BoxFit.fill,
-                )
-              ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/sunny_bg.png'),
+                      fit: BoxFit.fill,
+                    )
+                  ),
     
-            ),
+                ),
             
-            Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // Top section
-            Container(
-              color: const Color.fromARGB(0, 0, 0, 0),
-              height: 500,
-              child: const Center(
-                child: Text('Top Section'),
-              ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    // Top section
+                    Container(
+                      color: const Color.fromARGB(0, 0, 0, 0),
+                      height: 500,
+                      child: const Center(
+                        child: Text('Top Section'),
+                      ),
+                    ),
+                    const WeatherTable(),
+                  ],
+                )
+              ],
             ),
-            const WeatherTable(),
-            const ExtraDetails(),
-            ],
-            )
-          ],
-          ),
-     
-        Container(
-              color: const Color.fromARGB(0, 0, 0, 0),
-              height: 500,
-              child: const Center(
-                child: Text('Bottom Section'),
-              ),
-            ),
-          ],
 
+            const Stack(
+              children: [
+                Column(
+                  children: [
+                    ExtraDetails(),
+                  ]
+                )
+              ],
+            )
+
+          ],
         )
 
         
