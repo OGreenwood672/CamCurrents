@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       fetchForecast("2024-05-09")
+        // ignore: avoid_print
         .then((data) => print(data));
       //_counter++;
     });
