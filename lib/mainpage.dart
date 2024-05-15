@@ -82,7 +82,7 @@ class MainPageState extends State<MainPage> {
                         child: Text('Top Section'),
                       ),
                     ),
-                    const WeatherTable(),
+                    // const WeatherTable(),
                   ],
                 )
               ],

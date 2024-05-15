@@ -37,7 +37,21 @@ class _DayState extends State<Day> {
       }
       return "loading";
     }
+    if (0 > day || day > 4) { return "loading"; }
     return weatherData?[day]["day"];
+  }
+
+  Map<int, dynamic>? getHourlyForecast(day) {
+
+      if (weatherData == null) {
+        if (!isFetching) {
+          isFetching = true;
+          getData();
+        }
+        return null;
+      }
+      if (0 > day || day > 4) { return null; }
+      return weatherData?[day]["hourly_forecast"];
   }
 
 
@@ -92,7 +106,7 @@ class _DayState extends State<Day> {
                         child: Text('Top Section'),
                       ),
                     ),
-                    const WeatherTable(),
+                    WeatherTable(hourlyForecast: getHourlyForecast(selectedDay)),
                   ],
                 )
               ],
