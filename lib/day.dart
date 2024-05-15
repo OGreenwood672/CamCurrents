@@ -23,7 +23,9 @@ class _DayState extends State<Day> {
   void getData() {
     Future<Map<int, dynamic>> futureForecast = getForcast();
     futureForecast.then((data) {
-      weatherData = data;
+      setState(() {
+        weatherData = data;
+      });
     });
   }
 
