@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:camcurrents/weathertable.dart';
 import 'package:camcurrents/extradetails.dart';
 
 class MainPage extends StatefulWidget {

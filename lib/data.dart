@@ -17,7 +17,7 @@ Future<List<dynamic>> fetchForecast(String date) async {
     }
   } catch (e) {
     // ignore: avoid_print
-    print('[ERROR] (https://cam-currents-backend-ogreenwood672s-projects.vercel.app/get-data-by-date?date=$date): $e');
+    print('[ERROR] Failed to fetch data: $e');
     throw Error();
   }
   return [];
@@ -40,6 +40,7 @@ Future<List<dynamic>> fetchForecastDate(DateTime date) async {
 //    - "wind_direction"
 //    - "wind_speed"
 //    - "humidity"
+//    - "precipitation"
 // Value: value of weather type, e.g. "11.6"
 Future<Map<int, dynamic>> getForcast() async {
 
