@@ -1,5 +1,4 @@
 import 'package:camcurrents/day.dart';
-import 'package:camcurrents/mainpage.dart';
 import 'package:flutter/material.dart';
 //haha lol ...
 void main() {
