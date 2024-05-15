@@ -42,28 +42,39 @@ Future<List<dynamic>> fetchForecastDate(DateTime date) async {
 //    - "wind_speed"
 //    - "humidity"
 // Value: value of weather type, e.g. "11.6"
-Future<Map<int, Map<int, Map<String, dynamic>>>> getForcast() async{
+Future<Map<int, dynamic>> getForcast() async {
 
-  Map<int, Map<int, Map<String, dynamic>>> weather = {};
+  Map<int, dynamic> weather = {};
 
 
   for (int i=0; i < 5; i++){
     DateTime date = DateTime.now().add(Duration(days: i));
 
-    var jsonWeather = await fetchForecastDate(date);
+    var jsonHourlyForecast = await fetchForecastDate(date);
 
-    Map<int, Map<String, dynamic>> dayWeather = {};
+    Map<int, Map<String, dynamic>> hourlyForecast= {};
 
-    for (final Map<String, dynamic> line in jsonWeather){
+    for (final Map<String, dynamic> line in jsonHourlyForecast){
       Map<String, dynamic> entry = line;
       var time = entry["time"].toString().substring(0, 2);
       var inttime = int.parse(time);
-      dayWeather[inttime] = entry;
+      hourlyForecast[inttime] = entry;
     }
 
-    weather[i] = dayWeather;
+    Map<String, dynamic> forecast = {
+      "day": getDayName(date),
+      "hourly_forecast": hourlyForecast
+    };
+
+    weather[i] = forecast;
 
   }
   return weather;
 
+}
+
+
+String getDayName(DateTime date) {
+  final days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  return days[date.weekday - 1];
 }
