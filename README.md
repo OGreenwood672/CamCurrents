@@ -27,14 +27,9 @@
       <td>Rewrote some paragraphs to make more sense</td>
     </tr>
     <tr>
-      <td>14/5/24</td>
+      <td>2/5/24</td>
       <td>2</td>
       <td>Help make some corrections to our user requirements document and made a basic design out of shapes in figma of our app</td>
-    </tr>
-    <tr>
-      <td>16/5/24</td>
-      <td>3</td>
-      <td>Implemented the data into the day class</td>
     </tr>
     <tr>
       <td>7/5/24</td>
@@ -60,6 +55,11 @@
       <td>14/5/24</td>
       <td>2</td>
       <td>Made navigation and helped buidl the layout of the app</td>
+    </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>3</td>
+      <td>Implemented the data into the day class</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
