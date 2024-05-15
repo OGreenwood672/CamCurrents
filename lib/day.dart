@@ -33,7 +33,7 @@ class _DayState extends State<Day> {
         isFetching = true;
         getData();
       }
-      return "";
+      return "loading";
     }
     return weatherData?[day]["day"];
   }

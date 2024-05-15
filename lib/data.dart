@@ -18,7 +18,7 @@ Future<List<dynamic>> fetchForecast(String date) async {
     }
   } catch (e) {
     // ignore: avoid_print
-    print('[ERROR]: $e');
+    print('[ERROR] ($date): $e');
     throw Error();
   }
   return [];
