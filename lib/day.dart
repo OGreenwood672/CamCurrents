@@ -14,7 +14,6 @@ class Day extends StatefulWidget {
 
 class _DayState extends State<Day> {
 
-  int selectedDay = 0;
   double dayIconSize = 40;
 
   Map<int, dynamic>? weatherData;
@@ -78,86 +77,107 @@ class _DayState extends State<Day> {
 
     return Scaffold(
       appBar: null,
-      body: SingleChildScrollView(
-        child: Column( //Whole Page Column
-          children: [
-            Stack( // Top Page
-              children: [
-                Container( //Background Top Page
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/sunny_bg.png'),
-                      fit: BoxFit.fill,
-                    )
-                  ),
-    
-                ),
-            
-                Column( // Top Page Content
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    // Top section
-                    Container(
-                      color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 100,
+      body: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity! > 0 && widget.day > 0) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Day(day: widget.day - 1,);
+                },
+              ),
+            );
+          } else if (details.primaryVelocity! < 0 && widget.day < 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Day(day: widget.day + 1,);
+                },
+              ),
+            );
+          }
+        },
+        child: SingleChildScrollView(
+          child: Column( //Whole Page Column
+            children: [
+              Stack( // Top Page
+                children: [
+                  Container( //Background Top Page
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/sunny_bg.png'),
+                        fit: BoxFit.fill,
+                      )
                     ),
-                    Container(
-                      width: 100,
-                      height: 50,
-                      alignment: Alignment.center,
-                      child: Text(
-                        getDay(selectedDay),
-                        style: const TextStyle(
-                          fontSize: 30,
+      
+                  ),
+              
+                  Column( // Top Page Content
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      // Top section
+                      Container(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        height: 100,
+                      ),
+                      Container(
+                        width: 100,
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: Text(
+                          getDay(widget.day),
+                          style: const TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 300,
-                    ),
-                    WeatherTable(hourlyForecast: getHourlyForecast(selectedDay)),
-                  ],
-                )
-              ],
-            ),
+                      Container(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        height: 300,
+                      ),
+                      WeatherTable(hourlyForecast: getHourlyForecast(widget.day)),
+                    ],
+                  )
+                ],
+              ),
 
-             Stack(
-              children: [Container( //Background Top Page
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/underwater_bg.png'),
-                      fit: BoxFit.fill,
-                    )
+              Stack(
+                children: [Container( //Background Top Page
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/underwater_bg.png'),
+                        fit: BoxFit.fill,
+                      )
+                    ),
+      
                   ),
-    
-                ),
-                const Column(
-                  children: [
-                    ExtraDetails(),
-                  ]
-                )
-              ],
-            )
+                  const Column(
+                    children: [
+                      ExtraDetails(),
+                    ]
+                  )
+                ],
+              )
 
-          ],
-        )
-        
-        
+            ],
+          )
+          
+          
+        ),
       ),
     
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            selectedDay = index;
+            // widget.day = index;
           });
         },
         // indicatorColor: Colors.amber,
-        selectedIndex: selectedDay,
+        selectedIndex: widget.day,
         destinations: destinations
       ),
     );
