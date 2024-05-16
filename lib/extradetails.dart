@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+//import 'dart:developer';
 
 class ExtraDetails extends StatelessWidget {
   const ExtraDetails({super.key});
@@ -7,7 +7,8 @@ class ExtraDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.transparent, // Set background color for additional weather conditions
+      color: const Color.fromARGB(255, 0, 74, 126), // Set background color for additional weather conditions
+      //color: Colors.transparent,
       padding: const EdgeInsets.all(16.0),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -16,22 +17,22 @@ class ExtraDetails extends StatelessWidget {
           SizedBox(height: 30),
           Center(
           child: Text(
-            'Wind Speed: 10 km/h',
+            'Wind Speed: 10 km/h', //to change to dynamic
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           ),
           SizedBox(height: 10),
           Center(
             child: Text(
-              'Water Levels: Val',
+              'Water Level:   0.70m', //to change to dynamic
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
            ),
@@ -44,7 +45,7 @@ class ExtraDetails extends StatelessWidget {
               ),
               SizedBox(width: 20), // Adjust spacing between widgets
               Flexible(
-                child: SunsetTimeWidget(sunriseTime: "07:14", sunsetTime: "19:16"), // data to be changed to dynamic
+                child: SunsetTimeWidget(sunriseTime: "06:14", sunsetTime: "20:16"), // data to be changed to dynamic
               ),
             ],
           ),
@@ -70,7 +71,7 @@ class UVIndexWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.black, width: 1), // Border added
+        border: Border.all(color: Colors.lightBlue, width: 1), // Border added
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -79,14 +80,14 @@ class UVIndexWidget extends StatelessWidget {
             'UV: $uvIndex',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 10),
           Text(
             _getUVLevel(uvIndex),
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 10),
@@ -110,11 +111,11 @@ class UVIndexWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: (uvIndex / 12) * 200,
+                left: (uvIndex / 12) * 150,
                 child: Container(
                   width: 3, // Width of the indicator line
                   height: 14, // Height of the indicator line
-                  color: Colors.black, // Color of the indicator line
+                  color: Colors.white, // Color of the indicator line
                 ),
               ),
             ],
@@ -167,35 +168,45 @@ class SunsetTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Parse sunrise time
+    List<String> sunriseParts = sunriseTime!.split(':');
+    int sunriseMinutes = int.parse(sunriseParts[0]) * 60 + int.parse(sunriseParts[1]);
+    double stop2 = double.parse((sunriseMinutes / (24 * 60)).toStringAsFixed(3));
+    // Parse sunset time
+    List<String> sunsetParts = sunsetTime!.split(':');
+    int sunsetMinutes = int.parse(sunsetParts[0]) * 60 + int.parse(sunsetParts[1]);
+    double stop3 = double.parse((sunsetMinutes / (24 * 60)).toStringAsFixed(3));
     // Assuming currentTime represents the current time of day
     DateTime currentTime = DateTime.now();
-    // Assuming sunriseTime and sunsetTime are DateTime objects representing sunrise and sunset times
-    DateTime sunrise = DateFormat('HH:mm').parse(sunriseTime!);
-    DateTime sunset = DateFormat('HH:mm').parse(sunsetTime!);
-    
+    int currentMinutes = currentTime.hour * 60 + currentTime.minute;
+    // Log sunrise and sunset times in minutes
+    //log('Sunrise time (minutes): $sunriseMinutes');
+    // Position the indicator line
+    double indicatorPosition = currentMinutes / (24 * 60) * 150 - 1.5;
+
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.black, width: 1),
+        border: Border.all(color: Colors.lightBlue, width: 1),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Sunrise Time: $sunriseTime', // Display sunrise time
+            'Sunrise: $sunriseTime', // Display sunrise time
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 10),
           Text(
-            'Sunset Time: $sunsetTime', // Display sunset time
+            'Sunset: $sunsetTime', // Display sunset time
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 10),
@@ -205,9 +216,9 @@ class SunsetTimeWidget extends StatelessWidget {
                 height: 10, // Height of the color gradient scale
                 width: 200,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Colors.grey, Colors.yellow, Colors.grey], // Adjust colors as needed
-                    stops: [0, 0.5, 1], // Stops for gradient color
+                  gradient: LinearGradient(
+                    colors: const [Colors.grey, Colors.yellow,Colors.yellow, Colors.grey], // Adjust colors as needed
+                    stops: [stop2 - 0.05, stop2 + 0.05, stop3 - 0.05, stop3 + 0.05], // Stops for gradient color
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
@@ -215,11 +226,11 @@ class SunsetTimeWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: ((currentTime.hour * 60 + currentTime.minute) / (sunset.hour * 60 + sunset.minute)) * 200,
+                left: indicatorPosition,
                 child: Container(
                   width: 3, // Width of the indicator line
                   height: 14, // Height of the indicator line
-                  color: Colors.black, // Color of the indicator line
+                  color: Colors.deepOrange, // Color of the indicator line
                 ),
               ),
             ],
