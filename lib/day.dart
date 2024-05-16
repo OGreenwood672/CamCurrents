@@ -35,7 +35,7 @@ class _DayState extends State<Day> {
   }
 
   String getDay(day) {
-    const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     return days[(day+realDay)%7];
   }
 
@@ -90,7 +90,7 @@ class _DayState extends State<Day> {
                   height: MediaQuery.of(context).size.height,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/sunny_bg.png'),
+                      image: AssetImage('assets/images/rainy.gif'),
                       fit: BoxFit.fill,
                     )
                   ),
@@ -105,7 +105,17 @@ class _DayState extends State<Day> {
                       color: const Color.fromARGB(0, 0, 0, 0),
                       height: 100,
                     ),
-                    Text(getDay(selectedDay)),
+                    Container(
+                      width: 100,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: Text(
+                        getDay(selectedDay),
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
                     Container(
                       color: const Color.fromARGB(0, 0, 0, 0),
                       height: 300,
@@ -116,9 +126,19 @@ class _DayState extends State<Day> {
               ],
             ),
 
-            const Stack(
-              children: [
-                Column(
+             Stack(
+              children: [Container( //Background Top Page
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/underwater_bg.png'),
+                      fit: BoxFit.fill,
+                    )
+                  ),
+    
+                ),
+                const Column(
                   children: [
                     ExtraDetails(),
                   ]

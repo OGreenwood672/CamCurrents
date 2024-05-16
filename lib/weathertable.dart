@@ -12,14 +12,14 @@ class WeatherTable extends StatelessWidget {
     if (hourlyForecast == null) {
       return "-%";
     }
-    return "${hourlyForecast?[time]["precipitation"]}%";
+    return "${hourlyForecast?[time]["precipitation"].round()}%";
   }
 
   String getTemp(int time) {
     if (hourlyForecast == null) {
       return "-°C";
     }
-    return "${hourlyForecast?[time]["temperature"].toStringAsFixed(1)}°C";
+    return "${hourlyForecast?[time]["temperature"].round()}°";
   }
 
   @override
@@ -78,38 +78,40 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: const Color.fromARGB(150, 255, 255, 255),
       child: SizedBox(
-        width: 180, // Adjust according to your need
+        width: 160, // Adjust according to your need
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '$hour:00',
-                style: const TextStyle(
-                  fontSize: 18, // Increase font size
-                  fontWeight: FontWeight.bold, // Make it bold
-                ),
-              ),
-              const SizedBox(height: 10),
-              Column(
-                children:[
-                  ImageWithValueRow(
-                    imagePath: 'assets/images/precip-image.png',
-                    value: precipitation,
+              const SizedBox(height: 5),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  '$hour:00',
+                  style: const TextStyle(
+                    fontSize: 23, // Increase font size
                   ),
-                ]
+                ),
               ),
               const SizedBox(height: 10),
               Column(
                 children:[              
                   ImageWithValueRow(
-                    imagePath: 'assets/images/temperature-image-holder.png',
+                    imagePath: 'assets/images/thermometer1.png',
                     value: temperature,
                   ),
                 ],
+              ),
+              Column(
+                children:[
+                  ImageWithValueRow(
+                    imagePath: 'assets/images/rain1.png',
+                    value: precipitation,
+                  ),
+                ]
               ),
             ],
           ),
@@ -147,7 +149,7 @@ class ImageWithValueRow extends StatelessWidget {
           child: Center( // Center align the text
             child: Text(
               value,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18), // Make value bold and adjust font size
+              style: const TextStyle(fontSize: 23), // Make value bold and adjust font size
               
             ),
           ),
