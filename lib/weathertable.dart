@@ -69,7 +69,7 @@ class WeatherCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       child: SizedBox(
-        width: 180, // Adjust according to your need
+        width: 160, // Adjust according to your need
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -86,7 +86,7 @@ class WeatherCard extends StatelessWidget {
               Column(
                 children:[
                   ImageWithValueRow(
-                    imagePath: 'assets/images/precip-image.png',
+                    imagePath: 'assets/images/rain1.png',
                     value: precipitation,
                   ),
                 ]
@@ -95,7 +95,7 @@ class WeatherCard extends StatelessWidget {
               Column(
                 children:[              
                   ImageWithValueRow(
-                    imagePath: 'assets/images/temperature-image-holder.png',
+                    imagePath: 'assets/images/thermometer1.png',
                     value: temperature,
                   ),
                 ],
