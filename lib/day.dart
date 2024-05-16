@@ -1,6 +1,8 @@
 import 'package:camcurrents/data.dart';
 import 'package:camcurrents/extradetails.dart';
+import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
+
 import 'package:flutter/material.dart';
 
 class Day extends StatefulWidget {
@@ -83,19 +85,11 @@ class _DayState extends State<Day> {
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! > 0 && widget.day > 0) {
             Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Day(day: widget.day - 1,);
-                },
-              ),
+              createRoute(Day(day: widget.day - 1), const Offset(-1, 0))
             );
           } else if (details.primaryVelocity! < 0 && widget.day < 3) {
             Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Day(day: widget.day + 1,);
-                },
-              ),
+              createRoute(Day(day: widget.day + 1), const Offset(1, 0))
             );
           }
         },
@@ -175,7 +169,9 @@ class _DayState extends State<Day> {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            // widget.day = index;
+            Navigator.of(context).push(
+              createRoute(Day(day: index), const Offset(0, 1))
+            );
           });
         },
         // indicatorColor: Colors.amber,
