@@ -67,7 +67,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: const Color.fromARGB(150, 255, 255, 255),
       child: SizedBox(
         width: 160, // Adjust according to your need
         child: Padding(
