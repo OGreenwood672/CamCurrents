@@ -1,4 +1,4 @@
-import 'package:camcurrents/mainpage.dart';
+import 'package:camcurrents/day.dart';
 import 'package:flutter/material.dart';
 //haha lol ...
 void main() {
@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
+        fontFamily: "Rony"
       ),
-      home: const MainPage(),
+      home: const Day(day: 0),
     );
   }
 }

@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 
 class WeatherTable extends StatelessWidget {
-  const WeatherTable({super.key});
+
+  final Map<int, dynamic>? hourlyForecast;
+
+  const WeatherTable({super.key, required this.hourlyForecast});
+
+  String getPrecipitation(int time) {
+    if (hourlyForecast == null) {
+      return "-%";
+    }
+    return "${hourlyForecast?[time]["precipitation"].round()}%";
+  }
+
+  String getTemp(int time) {
+    if (hourlyForecast == null) {
+      return "-°C";
+    }
+    return "${hourlyForecast?[time]["temperature"].round()}°";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +40,8 @@ class WeatherTable extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: WeatherCard(
                 hour: hour,
-                precipitation: 'Val%', // Replace with actual value
-                temperature: 'Val°C', // Replace with actual value
+                precipitation: getPrecipitation(hour), // Replace with actual value
+                temperature: getTemp(hour), // Replace with actual value
               ),
             );
           }).toList(),
@@ -50,9 +67,9 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: const Color.fromARGB(150, 255, 255, 255),
       child: SizedBox(
-        width: 150, // Adjust according to your need
+        width: 160, // Adjust according to your need
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -67,22 +84,23 @@ class WeatherCard extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Column(
+                children:[              
+                  ImageWithValueRow(
+                    imagePath: 'assets/images/thermometer1.png',
+                    value: temperature,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
                 children:[
                   ImageWithValueRow(
-                    imagePath: 'assets/images/precip-image.png',
+                    imagePath: 'assets/images/rain1.png',
                     value: precipitation,
                   ),
                 ]
               ),
               const SizedBox(height: 10),
-              Column(
-                children:[              
-                  ImageWithValueRow(
-                    imagePath: 'assets/images/temperature-image-holder.png',
-                    value: temperature,
-                  ),
-                ],
-              ),
             ],
           ),
         ),
