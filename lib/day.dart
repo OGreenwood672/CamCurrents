@@ -36,7 +36,7 @@ class _DayState extends State<Day> {
 
   String getDay(day) {
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    return days[day];
+    return days[(day+realDay)%7];
   }
 
   Map<int, dynamic>? getHourlyForecast(day) {
@@ -73,7 +73,7 @@ class _DayState extends State<Day> {
 
     List<Widget> destinations = [];
     for (int i=0; i<numberDaysShown; i++){
-      destinations.add(buildNavigationDestination(realDay + i));
+      destinations.add(buildNavigationDestination(i));
     }
 
     return Scaffold(
