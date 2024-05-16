@@ -75,11 +75,14 @@ class WeatherCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '$hour:00',
-                style: const TextStyle(
-                  fontSize: 18, // Increase font size
-                  fontWeight: FontWeight.bold, // Make it bold
+              const SizedBox(height: 5),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  '$hour:00',
+                  style: const TextStyle(
+                    fontSize: 23, // Increase font size
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -91,7 +94,6 @@ class WeatherCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
               Column(
                 children:[
                   ImageWithValueRow(
@@ -100,7 +102,6 @@ class WeatherCard extends StatelessWidget {
                   ),
                 ]
               ),
-              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -137,7 +138,7 @@ class ImageWithValueRow extends StatelessWidget {
           child: Center( // Center align the text
             child: Text(
               value,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18), // Make value bold and adjust font size
+              style: const TextStyle(fontSize: 23), // Make value bold and adjust font size
               
             ),
           ),
