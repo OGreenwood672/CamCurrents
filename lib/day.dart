@@ -88,7 +88,7 @@ class _DayState extends State<Day> {
                   height: MediaQuery.of(context).size.height,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/sunny_bg.png'),
+                      image: AssetImage('assets/images/rainy.gif'),
                       fit: BoxFit.fill,
                     )
                   ),
