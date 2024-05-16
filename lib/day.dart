@@ -114,8 +114,18 @@ class _DayState extends State<Day> {
               ],
             ),
 
-            const Stack(
-              children: [
+             Stack(
+              children: [Container( //Background Top Page
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration:  BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/underwater_bg.png'),
+                      fit: BoxFit.fill,
+                    )
+                  ),
+    
+                ),
                 Column(
                   children: [
                     ExtraDetails(),
