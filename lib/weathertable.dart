@@ -10,14 +10,14 @@ class WeatherTable extends StatelessWidget {
     if (hourlyForecast == null) {
       return "-%";
     }
-    return "${hourlyForecast?[time]["precipitation"]}%";
+    return "${hourlyForecast?[time]["precipitation"].round()}%";
   }
 
   String getTemp(int time) {
     if (hourlyForecast == null) {
       return "-°C";
     }
-    return "${hourlyForecast?[time]["temperature"].toStringAsFixed(1)}°C";
+    return "${hourlyForecast?[time]["temperature"].round()}°";
   }
 
   @override
@@ -84,6 +84,15 @@ class WeatherCard extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Column(
+                children:[              
+                  ImageWithValueRow(
+                    imagePath: 'assets/images/thermometer1.png',
+                    value: temperature,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
                 children:[
                   ImageWithValueRow(
                     imagePath: 'assets/images/rain1.png',
@@ -92,14 +101,6 @@ class WeatherCard extends StatelessWidget {
                 ]
               ),
               const SizedBox(height: 10),
-              Column(
-                children:[              
-                  ImageWithValueRow(
-                    imagePath: 'assets/images/thermometer1.png',
-                    value: temperature,
-                  ),
-                ],
-              ),
             ],
           ),
         ),
