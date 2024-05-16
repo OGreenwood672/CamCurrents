@@ -19,7 +19,7 @@ class _DayState extends State<Day> {
   Map<int, dynamic>? weatherData;
   bool isFetching = false;
 
-  static const int numberDaysShown = 4;
+  static const int numberDaysShown = 5;
   final int realDay;
 
   _DayState() : realDay = (DateTime.now().weekday - 1);
@@ -74,6 +74,8 @@ class _DayState extends State<Day> {
     for (int i=0; i<numberDaysShown; i++){
       destinations.add(buildNavigationDestination(i));
     }
+
+    WeatherTable weatherTable = WeatherTable(hourlyForecast: getHourlyForecast(selectedDay), day: selectedDay);
 
     return Scaffold(
       appBar: null,
