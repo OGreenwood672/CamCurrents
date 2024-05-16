@@ -260,8 +260,13 @@
     </tr>
     <tr>
       <td>14/5/24</td>
-      <td>2</td>
-      <td>Improved hourly forecast and extra details</td>
+      <td>3</td>
+      <td>Worked on hourly forecast and extra details</td>
+    </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>3</td>
+      <td>Worked on extra details</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
