@@ -75,7 +75,7 @@ class _DayState extends State<Day> {
       destinations.add(buildNavigationDestination(i));
     }
 
-    WeatherTable weatherTable = WeatherTable(hourlyForecast: getHourlyForecast(selectedDay), day: selectedDay);
+    WeatherTable weatherTable = WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day);
 
     return Scaffold(
       appBar: null,
@@ -139,7 +139,7 @@ class _DayState extends State<Day> {
                         color: const Color.fromARGB(0, 0, 0, 0),
                         height: 300,
                       ),
-                      WeatherTable(hourlyForecast: getHourlyForecast(widget.day)),
+                      weatherTable
                     ],
                   )
                 ],

@@ -54,12 +54,17 @@
     <tr>
       <td>14/5/24</td>
       <td>2</td>
-      <td>Made navigation and helped buidl the layout of the app</td>
+      <td>Made navigation and helped build the layout of the app</td>
+    </tr>
+    <tr>
+      <td>15/5/24</td>
+      <td>3</td>
+      <td>Implemented the data into the day class</td>
     </tr>
     <tr>
       <td>16/5/24</td>
-      <td>3</td>
-      <td>Implemented the data into the day class</td>
+      <td>2</td>
+      <td>Added swiping, cleaned up weather table, added day title</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
