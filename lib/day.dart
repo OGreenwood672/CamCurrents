@@ -1,5 +1,8 @@
-import 'package:camcurrents/ExtraDetails/details.dart';
-import 'package:camcurrents/data.dart';
+import 'package:camcurrents/ExtraDetails/sun.dart';
+import 'package:camcurrents/ExtraDetails/uv.dart';
+import 'package:camcurrents/ExtraDetails/wind.dart';
+import 'package:camcurrents/fetchForecast.dart';
+import 'package:camcurrents/getForecastAttr.dart';
 import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
 
@@ -152,19 +155,51 @@ class _DayState extends State<Day> {
                     ),
       
                   ),
-                  const Column(
-                    children: [
-                      ExtraDetails(),
-                    ]
-                  )
-                ],
-              )
-
-            ],
+                  Container(
+                      color: const Color.fromARGB(255, 0, 74, 126), // Set background color for additional weather conditions
+                      //color: Colors.transparent,
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 30),
+                            Center(
+                              child: WindWidget(windspeed: getWindSpeed(getHourlyForecast(widget.day)), windDirection: getWindDirection(getHourlyForecast(widget.day)))
+                            ),
+                          const SizedBox(height: 10),
+                          const Center(
+                            child: Text(
+                              'Water Level:   0.70m', //to change to dynamic
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
+                              ),
+                              SizedBox(width: 20), // Adjust spacing between widgets
+                              Flexible(
+                                child: SunsetTimeWidget(sunriseTime: "06:14", sunsetTime: "20:16"), // data to be changed to dynamic
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            )
           )
-          
-          
-        ),
       ),
     
       bottomNavigationBar: NavigationBar(
