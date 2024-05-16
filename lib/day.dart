@@ -76,11 +76,11 @@ class _DayState extends State<Day> {
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
-        child: Column(
+        child: Column( //Whole Page Column
           children: [
-            Stack(
+            Stack( // Top Page
               children: [
-                Container(
+                Container( //Background Top Page
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   decoration: const BoxDecoration(
@@ -92,7 +92,7 @@ class _DayState extends State<Day> {
     
                 ),
             
-                Column(
+                Column( // Top Page Content
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     // Top section
