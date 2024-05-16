@@ -1,5 +1,5 @@
+import 'package:camcurrents/ExtraDetails/details.dart';
 import 'package:camcurrents/data.dart';
-import 'package:camcurrents/extradetails.dart';
 import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
 
@@ -140,7 +140,8 @@ class _DayState extends State<Day> {
               ),
 
               Stack(
-                children: [Container( //Background Top Page
+                children: [
+                  Container( //Background Bottom Page
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
