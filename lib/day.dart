@@ -74,10 +74,7 @@ class _DayState extends State<Day> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(getDay(selectedDay)),
-      ),
+      appBar: null,
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -25,7 +25,6 @@ Future<List<dynamic>> fetchForecast(String date) async {
 
 Future<List<dynamic>> fetchForecastDate(DateTime date) async {
   return fetchForecast(DateFormat('yyyy-MM-dd').format(date));
-
 }
 
 // Day -> Time -> Weather type -> Value
