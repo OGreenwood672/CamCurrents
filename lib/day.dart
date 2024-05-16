@@ -20,6 +20,11 @@ class _DayState extends State<Day> {
   Map<int, dynamic>? weatherData;
   bool isFetching = false;
 
+  static const int numberDaysShown = 4;
+  final int realDay;
+
+  _DayState() : realDay = (DateTime.now().weekday - 1);
+
   void getData() {
     Future<Map<int, dynamic>> futureForecast = getForcast();
     futureForecast.then((data) {
@@ -30,15 +35,8 @@ class _DayState extends State<Day> {
   }
 
   String getDay(day) {
-    if (weatherData == null) {
-      if (!isFetching) {
-        isFetching = true;
-        getData();
-      }
-      return "loading";
-    }
-    if (0 > day || day > 4) { return "loading"; }
-    return weatherData?[day]["day"];
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    return days[day];
   }
 
   Map<int, dynamic>? getHourlyForecast(day) {
@@ -72,6 +70,11 @@ class _DayState extends State<Day> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> destinations = [];
+    for (int i=0; i<numberDaysShown; i++){
+      destinations.add(buildNavigationDestination(realDay + i));
+    }
 
     return Scaffold(
       appBar: null,
@@ -135,11 +138,7 @@ class _DayState extends State<Day> {
         },
         // indicatorColor: Colors.amber,
         selectedIndex: selectedDay,
-        destinations: <Widget>[
-          buildNavigationDestination(0),
-          buildNavigationDestination(1),
-          buildNavigationDestination(2),
-        ],
+        destinations: destinations
       ),
     );
   }
