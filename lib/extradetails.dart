@@ -10,6 +10,7 @@ class ExtraDetails extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 30),
           Center(
@@ -18,7 +19,7 @@ class ExtraDetails extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           ),
@@ -29,12 +30,15 @@ class ExtraDetails extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
            ),
           SizedBox(height: 10),
-          UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
+          FractionallySizedBox(
+            widthFactor: 0.5,
+            child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
+          ),
           SizedBox(height: 10),
           Center(
             child: Text(
@@ -66,25 +70,56 @@ class UVIndexWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: _getUVColor(uvIndex),
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.black, width: 1), // Border added
       ),
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'UV: $uvIndex',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
-          const SizedBox(width: 5),
+          const SizedBox(height: 10),
           Text(
             _getUVLevel(uvIndex),
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
+          ),
+          const SizedBox(height: 10),
+          Stack(
+            children: [
+              Container(
+                height: 10, // Height of the color gradient scale
+                width: 200,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      _getUVColor(0), // UV level 0 color
+                      _getUVColor(4), // UV level 4 color
+                      _getUVColor(8), // UV level 8 color
+                      _getUVColor(12), // UV level 12 color
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              Positioned(
+                left: (uvIndex / 12) * 200,
+                child: Container(
+                  width: 3, // Width of the indicator line
+                  height: 14, // Height of the indicator line
+                  color: Colors.black, // Color of the indicator line
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:camcurrents/weathertable.dart';
 import 'package:camcurrents/extradetails.dart';
 
 class MainPage extends StatefulWidget {
@@ -82,7 +81,7 @@ class MainPageState extends State<MainPage> {
                         child: Text('Top Section'),
                       ),
                     ),
-                    const WeatherTable(),
+                    // const WeatherTable(),
                   ],
                 )
               ],

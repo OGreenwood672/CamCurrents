@@ -1,55 +1,147 @@
-
-
-
 import 'package:camcurrents/data.dart';
+import 'package:camcurrents/extradetails.dart';
 import 'package:camcurrents/weathertable.dart';
 import 'package:flutter/material.dart';
 
 class Day extends StatefulWidget {
+  final int day;
 
-  final Map<int, Map<int, Map<String, dynamic>>> _weatherData;
+  const Day({super.key, required this.day});
 
-  const Day({super.key, required Map<int, Map<int, Map<String, dynamic>>> weatherData}) : _weatherData=weatherData;
-
- @override
-  State<Day> createState() => _DayState(_weatherData);
+  @override
+  State<Day> createState() => _DayState();
 }
 
-class _DayState extends State<Day>{
-  
-  final Map<int, Map<int, Map<String, dynamic>>> _weatherData;
+class _DayState extends State<Day> {
 
-  _DayState(Map<int, Map<int, Map<String, dynamic>>> weatherData) : 
-    _weatherData = weatherData;
+  int selectedDay = 0;
+  double dayIconSize = 40;
+
+  Map<int, dynamic>? weatherData;
+  bool isFetching = false;
+
+  void getData() {
+    Future<Map<int, dynamic>> futureForecast = getForcast();
+    futureForecast.then((data) {
+      setState(() {
+        weatherData = data;
+      });
+    });
+  }
+
+  String getDay(day) {
+    if (weatherData == null) {
+      if (!isFetching) {
+        isFetching = true;
+        getData();
+      }
+      return "loading";
+    }
+    if (0 > day || day > 4) { return "loading"; }
+    return weatherData?[day]["day"];
+  }
+
+  Map<int, dynamic>? getHourlyForecast(day) {
+
+      if (weatherData == null) {
+        if (!isFetching) {
+          isFetching = true;
+          getData();
+        }
+        return null;
+      }
+      if (0 > day || day > 4) { return null; }
+      return weatherData?[day]["hourly_forecast"];
+  }
+
+
+  Widget buildNavigationDestination(int day) {
+    return NavigationDestination(
+      selectedIcon: ColorFiltered(
+        colorFilter: const ColorFilter.mode(Color.fromARGB(255, 27, 106, 234), BlendMode.srcIn),
+        child: Image.asset(
+          'assets/icons/${getDay(day).toLowerCase()}.png',
+          width: dayIconSize,
+          height: dayIconSize,
+        ),
+      ),
+      icon: Image.asset('assets/icons/${getDay(day).toLowerCase()}.png', width: dayIconSize, height: dayIconSize),
+      label: "",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
 
-
-    return SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(getDay(selectedDay)),
+      ),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // Top section
-            Container(
-              color: Colors.white,
-              height: 300,
-              child: const Center(
-                child: Text('Top Section'),
-              ),
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/sunny_bg.png'),
+                      fit: BoxFit.fill,
+                    )
+                  ),
+    
+                ),
+            
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    // Top section
+                    Container(
+                      color: const Color.fromARGB(0, 0, 0, 0),
+                      height: 500,
+                      child: const Center(
+                        child: Text('Top Section'),
+                      ),
+                    ),
+                    WeatherTable(hourlyForecast: getHourlyForecast(selectedDay)),
+                  ],
+                )
+              ],
             ),
-            // Middle section with the weather table
-            const WeatherTable(),
-            // Bottom section
-            Container(
-              color: Colors.white,
-              height: 500,
-              child: const Center(
-                child: Text('Bottom Section'),
-              ),
-            ),
+
+            const Stack(
+              children: [
+                Column(
+                  children: [
+                    ExtraDetails(),
+                  ]
+                )
+              ],
+            )
+
           ],
-        ),
+        )
+        
+        
+      ),
+    
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            selectedDay = index;
+          });
+        },
+        // indicatorColor: Colors.amber,
+        selectedIndex: selectedDay,
+        destinations: <Widget>[
+          buildNavigationDestination(0),
+          buildNavigationDestination(1),
+          buildNavigationDestination(2),
+        ],
+      ),
     );
   }
 
