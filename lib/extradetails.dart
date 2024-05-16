@@ -34,12 +34,12 @@ class ExtraDetails extends StatelessWidget {
               ),
             ),
            ),
-          SizedBox(height: 10),
+          SizedBox(height: 30),
           FractionallySizedBox(
             widthFactor: 0.5,
             child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Center(
             child: Text(
               'Sunset Time: 19:30',

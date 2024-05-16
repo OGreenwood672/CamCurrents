@@ -69,7 +69,7 @@ class WeatherCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       child: SizedBox(
-        width: 150, // Adjust according to your need
+        width: 180, // Adjust according to your need
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
