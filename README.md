@@ -66,6 +66,11 @@
       <td>2</td>
       <td>Added swiping, cleaned up weather table, added day title</td>
     </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>2</td>
+      <td>Implemented data and redid the files layout</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>
