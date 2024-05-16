@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExtraDetails extends StatelessWidget {
   const ExtraDetails({super.key});
@@ -35,21 +36,18 @@ class ExtraDetails extends StatelessWidget {
             ),
            ),
           SizedBox(height: 30),
-          FractionallySizedBox(
-            widthFactor: 0.5,
-            child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              'Sunset Time: 19:30',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
               ),
-            ),
-           ),
+              SizedBox(width: 20), // Adjust spacing between widgets
+              Flexible(
+                child: SunsetTimeWidget(sunriseTime: "07:14", sunsetTime: "19:16"), // data to be changed to dynamic
+              ),
+            ],
+          ),
           SizedBox(height: 10),
         ],
       ),
@@ -155,4 +153,88 @@ class UVIndexWidget extends StatelessWidget {
       return 'Extreme'; // Extreme UV index
     }
   }
+}
+
+class SunsetTimeWidget extends StatelessWidget {
+  final String? sunsetTime;
+  final String? sunriseTime;
+
+  const SunsetTimeWidget({
+    super.key,
+    required this.sunriseTime,
+    required this.sunsetTime,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Assuming currentTime represents the current time of day
+    DateTime currentTime = DateTime.now();
+
+    // Assuming sunriseTime and sunsetTime are DateTime objects representing sunrise and sunset times
+    DateTime sunrise = DateFormat('HH:mm').parse(sunriseTime!);
+    DateTime sunset = DateFormat('HH:mm').parse(sunsetTime!);
+
+    // Calculate the fraction of the day elapsed since sunrise
+    double elapsedFraction = (currentTime.hour * 60 + currentTime.minute) /
+        (sunrise.hour * 60 + sunrise.minute);
+
+    // Use the elapsed fraction to position the indicator line
+    double indicatorPosition = 200 * elapsedFraction;
+
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.black, width: 1),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Sunrise Time: $sunriseTime', // Display sunrise time
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Sunset Time: $sunsetTime', // Display sunset time
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Stack(
+            children: [
+              Container(
+                height: 10, // Height of the color gradient scale
+                width: 200,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Colors.grey, Colors.yellow], // Adjust colors as needed
+                    stops: [0, 1], // Stops for gradient color
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              Positioned(
+                left: indicatorPosition - 1.5, // Adjust the offset of the indicator line
+                child: Container(
+                  width: 3, // Width of the indicator line
+                  height: 14, // Height of the indicator line
+                  color: Colors.black, // Color of the indicator line
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 }
