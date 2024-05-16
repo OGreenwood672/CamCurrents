@@ -17,7 +17,7 @@ class WeatherTable extends StatelessWidget {
     if (hourlyForecast == null) {
       return "-°C";
     }
-    return "${hourlyForecast?[time]["temperature"]}°C";
+    return "${hourlyForecast?[time]["temperature"].toStringAsFixed(1)}°C";
   }
 
   @override
