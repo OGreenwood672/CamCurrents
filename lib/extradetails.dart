@@ -169,18 +169,10 @@ class SunsetTimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Assuming currentTime represents the current time of day
     DateTime currentTime = DateTime.now();
-
     // Assuming sunriseTime and sunsetTime are DateTime objects representing sunrise and sunset times
     DateTime sunrise = DateFormat('HH:mm').parse(sunriseTime!);
     DateTime sunset = DateFormat('HH:mm').parse(sunsetTime!);
-
-    // Calculate the fraction of the day elapsed since sunrise
-    double elapsedFraction = (currentTime.hour * 60 + currentTime.minute) /
-        (sunrise.hour * 60 + sunrise.minute);
-
-    // Use the elapsed fraction to position the indicator line
-    double indicatorPosition = 200 * elapsedFraction;
-
+    
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -214,8 +206,8 @@ class SunsetTimeWidget extends StatelessWidget {
                 width: 200,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Colors.grey, Colors.yellow], // Adjust colors as needed
-                    stops: [0, 1], // Stops for gradient color
+                    colors: [Colors.grey, Colors.yellow, Colors.grey], // Adjust colors as needed
+                    stops: [0, 0.5, 1], // Stops for gradient color
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
@@ -223,7 +215,7 @@ class SunsetTimeWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: indicatorPosition - 1.5, // Adjust the offset of the indicator line
+                left: ((currentTime.hour * 60 + currentTime.minute) / (sunset.hour * 60 + sunset.minute)) * 200,
                 child: Container(
                   width: 3, // Width of the indicator line
                   height: 14, // Height of the indicator line
