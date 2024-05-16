@@ -98,9 +98,13 @@ class _DayState extends State<Day> {
                     // Top section
                     Container(
                       color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 500,
+                      height: 100,
                     ),
                     Text(getDay(selectedDay)),
+                    Container(
+                      color: const Color.fromARGB(0, 0, 0, 0),
+                      height: 300,
+                    ),
                     WeatherTable(hourlyForecast: getHourlyForecast(selectedDay)),
                   ],
                 )
