@@ -28,16 +28,16 @@ class WeatherTable extends StatelessWidget {
     int endHour = 23;
 
     int offset = 6;
-    double width = 1800;
+    double width = 500;
 
     if (day == 0){
       currentHour = DateTime.now().hour;
       offset = 0;
     }
 
-    print(offset);
+    print(offset*width);
 
-    //ScrollController(initialScrollOffset: offset*width);
+    ScrollController scrollController = ScrollController(initialScrollOffset: offset*width, keepScrollOffset: false);
 
     List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
 
@@ -46,7 +46,7 @@ class WeatherTable extends StatelessWidget {
       height: 220,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        controller: ScrollController(initialScrollOffset: offset*width),
+        controller: scrollController,
         children: hours.map((hour) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
