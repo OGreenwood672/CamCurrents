@@ -54,12 +54,27 @@
     <tr>
       <td>14/5/24</td>
       <td>2</td>
-      <td>Made navigation and helped buidl the layout of the app</td>
+      <td>Made navigation and helped build the layout of the app</td>
+    </tr>
+    <tr>
+      <td>15/5/24</td>
+      <td>3</td>
+      <td>Implemented the data into the day class</td>
     </tr>
     <tr>
       <td>16/5/24</td>
+      <td>2</td>
+      <td>Added swiping, cleaned up weather table, added day title</td>
+    </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>2</td>
+      <td>Implemented data and redid the files layout</td>
+    </tr>
+    <tr>
+      <td>17/5/24</td>
       <td>3</td>
-      <td>Implemented the data into the day class</td>
+      <td>Added more data to DB, implemented that data in the app. Made the data not be fetched on every page change</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
@@ -255,8 +270,18 @@
     </tr>
     <tr>
       <td>14/5/24</td>
-      <td>2</td>
-      <td>Improved hourly forecast and extra details</td>
+      <td>3</td>
+      <td>Worked on hourly forecast and extra details</td>
+    </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>3</td>
+      <td>Worked on extra details</td>
+    </tr>
+    <tr>
+      <td>17/5/24</td>
+      <td>0.5</td>
+      <td>Worked on some widgets in extra details</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>

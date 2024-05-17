@@ -1,12 +1,19 @@
-import 'package:camcurrents/data.dart';
-import 'package:camcurrents/extradetails.dart';
+import 'package:camcurrents/ExtraDetails/sun.dart';
+import 'package:camcurrents/ExtraDetails/uv.dart';
+import 'package:camcurrents/ExtraDetails/wind.dart';
+import 'package:camcurrents/ExtraDetails/waterlevel.dart';
+import 'package:camcurrents/fetchForecast.dart';
+import 'package:camcurrents/getForecastAttr.dart';
+import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
+
 import 'package:flutter/material.dart';
 
 class Day extends StatefulWidget {
   final int day;
+  final Map<int, dynamic>? weatherData;
 
-  const Day({super.key, required this.day});
+  const Day({super.key, required this.weatherData, required this.day});
 
   @override
   State<Day> createState() => _DayState();
@@ -14,24 +21,31 @@ class Day extends StatefulWidget {
 
 class _DayState extends State<Day> {
 
-  int selectedDay = 0;
   double dayIconSize = 40;
 
-  Map<int, dynamic>? weatherData;
   bool isFetching = false;
 
-  static const int numberDaysShown = 4;
+  Map<int, dynamic>? _weatherData;
+
+  static const int numberDaysShown = 5;
   final int realDay;
 
   _DayState() : realDay = (DateTime.now().weekday - 1);
 
-  void getData() {
-    Future<Map<int, dynamic>> futureForecast = getForcast();
-    futureForecast.then((data) {
-      setState(() {
-        weatherData = data;
+  @override
+  void initState() {
+    super.initState();
+    
+    if (widget.weatherData == null) {
+      Future<Map<int, dynamic>> futureForecast = getForcast();
+      futureForecast.then((data) {
+        setState(() {
+          _weatherData = data;
+        });
       });
-    });
+    } else {
+      _weatherData = widget.weatherData;
+    }
   }
 
   String getDay(day) {
@@ -41,15 +55,11 @@ class _DayState extends State<Day> {
 
   Map<int, dynamic>? getHourlyForecast(day) {
 
-      if (weatherData == null) {
-        if (!isFetching) {
-          isFetching = true;
-          getData();
-        }
+      if (_weatherData == null) {
         return null;
       }
       if (0 > day || day > 4) { return null; }
-      return weatherData?[day]["hourly_forecast"];
+      return _weatherData?[day]["hourly_forecast"];
   }
 
 //String chooseBackground(){
@@ -80,88 +90,142 @@ class _DayState extends State<Day> {
       destinations.add(buildNavigationDestination(i));
     }
 
+    WeatherTable weatherTable = WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day);
+
     return Scaffold(
       appBar: null,
-      body: SingleChildScrollView(
-        child: Column( //Whole Page Column
-          children: [
-            Stack( // Top Page
-              children: [
-                Container( //Background Top Page
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/rainy.gif'),
-                      fit: BoxFit.fill,
-                    )
-                  ),
-    
-                ),
-            
-                Column( // Top Page Content
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    // Top section
-                    Container(
-                      color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 100,
+      body: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity! > 0 && widget.day > 0) {
+            Navigator.of(context).push(
+              createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
+            );
+          } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown) {
+            Navigator.of(context).push(
+              createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
+            );
+          }
+        },
+        child: SingleChildScrollView(
+          child: Column( //Whole Page Column
+            children: [
+              Stack( // Top Page
+                children: [
+                  Container( //Background Top Page
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/sunny_bg.png'),
+                        fit: BoxFit.fill,
+                      )
                     ),
-                    Container(
-                      width: 100,
-                      height: 50,
-                      alignment: Alignment.center,
-                      child: Text(
-                        getDay(selectedDay),
-                        style: const TextStyle(
-                          fontSize: 30,
+      
+                  ),
+              
+                  Column( // Top Page Content
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      // Top section
+                      Container(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        height: 100,
+                      ),
+                      Container(
+                        width: 100,
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: Text(
+                          getDay(widget.day),
+                          style: const TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
                       ),
+                      Container(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        height: 300,
+                      ),
+                      weatherTable
+                    ],
+                  )
+                ],
+              ),
+
+              Stack(
+                children: [
+                  Container( //Background Bottom Page
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/underwater_bg.png'),
+                        fit: BoxFit.fill,
+                      )
                     ),
-                    Container(
-                      color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 300,
-                    ),
-                    WeatherTable(hourlyForecast: getHourlyForecast(selectedDay)),
+      
+                  ),
+                  Container(
+                      color: const Color.fromARGB(255, 0, 74, 126), // Set background color for additional weather conditions
+                      //color: Colors.transparent,
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 30),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: WindWidget(
+                                    windspeed: getWindSpeed(getHourlyForecast(widget.day)),
+                                    windDirection: getWindDirection(getHourlyForecast(widget.day)),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 15), // Space between the widgets
+                              Expanded(
+                                child: Center(
+                                  child: WaterLvlWidget(waterLevel: getWaterLevel(getHourlyForecast(widget.day))),
+                                ),
+                              ),
+                            ],
+                          ), 
+                          const SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: UVIndexWidget(uvIndex: getUVIndex(getHourlyForecast(widget.day))), // data to be changed to dynamic
+                              ),
+                              const SizedBox(width: 20), // Adjust spacing between widgets
+                              Flexible(
+                                child: SunsetTimeWidget(sunriseTime: getSunrise(getHourlyForecast(widget.day)), sunsetTime: getSunset(getHourlyForecast(widget.day))),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                    )
                   ],
                 )
               ],
-            ),
-
-             Stack(
-              children: [Container( //Background Top Page
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/underwater_bg.png'),
-                      fit: BoxFit.fill,
-                    )
-                  ),
-    
-                ),
-                const Column(
-                  children: [
-                    ExtraDetails(),
-                  ]
-                )
-              ],
             )
-
-          ],
-        )
-        
-        
+          )
       ),
     
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            selectedDay = index;
+            Navigator.of(context).push(
+              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0, 1))
+            );
           });
         },
         // indicatorColor: Colors.amber,
-        selectedIndex: selectedDay,
+        selectedIndex: widget.day,
         destinations: destinations
       ),
     );

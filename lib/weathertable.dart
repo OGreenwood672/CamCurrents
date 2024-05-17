@@ -1,51 +1,48 @@
+import 'package:camcurrents/getForecastAttr.dart';
 import 'package:flutter/material.dart';
 
 class WeatherTable extends StatelessWidget {
 
   final Map<int, dynamic>? hourlyForecast;
+  final int day;
 
-  const WeatherTable({super.key, required this.hourlyForecast});
-
-  String getPrecipitation(int time) {
-    if (hourlyForecast == null) {
-      return "-%";
-    }
-    return "${hourlyForecast?[time]["precipitation"].round()}%";
-  }
-
-  String getTemp(int time) {
-    if (hourlyForecast == null) {
-      return "-°C";
-    }
-    return "${hourlyForecast?[time]["temperature"].round()}°";
-  }
+  const WeatherTable({super.key, required this.hourlyForecast, required this.day});
 
   @override
   Widget build(BuildContext context) {
-    int currentHour = DateTime.now().hour;
-    int endHour = currentHour + 12;
-    if (endHour > 23) {
-      endHour = 23; // Ensure it doesn't exceed 23:00
+    int currentHour = 0;
+    int endHour = 23;
+
+    int offset = 6;
+    double width = 1800;
+
+    if (day == 0){
+      currentHour = DateTime.now().hour;
+      offset = 0;
     }
+
+    print(offset);
+
+    //ScrollController(initialScrollOffset: offset*width);
+
     List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
 
     return Container(
       color: Colors.transparent, // Set the background color to blue
       height: 220,
-      child: SingleChildScrollView(
+      child: ListView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: hours.map((hour) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: WeatherCard(
-                hour: hour,
-                precipitation: getPrecipitation(hour), // Replace with actual value
-                temperature: getTemp(hour), // Replace with actual value
-              ),
-            );
-          }).toList(),
-        ),
+        controller: ScrollController(initialScrollOffset: offset*width),
+        children: hours.map((hour) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: WeatherCard(
+              hour: hour,
+              precipitation: getPrecipitation(hourlyForecast, hour), // Replace with actual value
+              temperature: getTemp(hourlyForecast, hour), // Replace with actual value
+            ),
+          );
+        }).toList(),
       ),
     );
   }
