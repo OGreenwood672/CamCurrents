@@ -149,7 +149,7 @@ class _DayState extends State<Day> {
                     height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/underwater_bg.PNG'),
+                        image: AssetImage('assets/images/underwater_bg.png'),
                         fit: BoxFit.fill,
                       )
                     ),
@@ -178,20 +178,20 @@ class _DayState extends State<Day> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Flexible(
-                                child: UVIndexWidget(uvIndex: 7), // data to be changed to dynamic
+                                child: UVIndexWidget(uvIndex: getUVIndex(getHourlyForecast(widget.day))), // data to be changed to dynamic
                               ),
-                              SizedBox(width: 20), // Adjust spacing between widgets
+                              const SizedBox(width: 20), // Adjust spacing between widgets
                               Flexible(
-                                child: SunsetTimeWidget(sunriseTime: "06:14", sunsetTime: "20:16"), // data to be changed to dynamic
+                                child: SunsetTimeWidget(sunriseTime: getSunrise(getHourlyForecast(widget.day)), sunsetTime: getSunset(getHourlyForecast(widget.day))),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                         ],
                       ),
                     )

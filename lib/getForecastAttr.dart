@@ -44,3 +44,24 @@ String getWindSpeed(Map<int, dynamic>? hourlyForecast) {
   }
   return "${hourlyForecast[getCurrentHour()]["wind_speed"]} mph";
 }
+
+String getSunrise(Map<int, dynamic>? hourlyForecast) {
+  if (hourlyForecast == null) {
+    return "--:--";
+  }
+  return hourlyForecast[23]["sunrise"].substring(0, 5);
+}
+
+String getSunset(Map<int, dynamic>? hourlyForecast) {
+  if (hourlyForecast == null) {
+    return "--:--";
+  }
+  return hourlyForecast[23]["sunset"].substring(0, 5);
+}
+
+int getUVIndex(Map<int, dynamic>? hourlyForecast) {
+  if (hourlyForecast == null) {
+    return 0;
+  }
+  return hourlyForecast[getCurrentHour()]["uv_index"].round();
+}

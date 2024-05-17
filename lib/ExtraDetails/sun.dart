@@ -12,21 +12,30 @@ class SunsetTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Parse sunrise time
-    List<String> sunriseParts = sunriseTime!.split(':');
-    int sunriseMinutes = int.parse(sunriseParts[0]) * 60 + int.parse(sunriseParts[1]);
-    double stop2 = double.parse((sunriseMinutes / (24 * 60)).toStringAsFixed(3));
-    // Parse sunset time
-    List<String> sunsetParts = sunsetTime!.split(':');
-    int sunsetMinutes = int.parse(sunsetParts[0]) * 60 + int.parse(sunsetParts[1]);
-    double stop3 = double.parse((sunsetMinutes / (24 * 60)).toStringAsFixed(3));
-    // Assuming currentTime represents the current time of day
-    DateTime currentTime = DateTime.now();
-    int currentMinutes = currentTime.hour * 60 + currentTime.minute;
-    // Log sunrise and sunset times in minutes
-    //log('Sunrise time (minutes): $sunriseMinutes');
-    // Position the indicator line
-    double indicatorPosition = currentMinutes / (24 * 60) * 150 - 1.5;
+
+    double stop2 = 0;
+    double stop3 = 0;
+    double indicatorPosition = 0;
+
+    if (sunriseTime != "--:--") {
+      // Parse sunrise time
+      List<String> sunriseParts = sunriseTime!.split(':');
+
+      int sunriseMinutes = int.parse(sunriseParts[0]) * 60 + int.parse(sunriseParts[1]);
+      stop2 = double.parse((sunriseMinutes / (24 * 60)).toStringAsFixed(3));
+      // Parse sunset time
+      List<String> sunsetParts = sunsetTime!.split(':');
+      int sunsetMinutes = int.parse(sunsetParts[0]) * 60 + int.parse(sunsetParts[1]);
+      stop3 = double.parse((sunsetMinutes / (24 * 60)).toStringAsFixed(3));
+      // Assuming currentTime represents the current time of day
+      DateTime currentTime = DateTime.now();
+      int currentMinutes = currentTime.hour * 60 + currentTime.minute;
+      // Log sunrise and sunset times in minutes
+      //log('Sunrise time (minutes): $sunriseMinutes');
+      // Position the indicator line
+      indicatorPosition = currentMinutes / (24 * 60) * 150 - 1.5;
+
+    }
 
     return Container(
       padding: const EdgeInsets.all(10),
