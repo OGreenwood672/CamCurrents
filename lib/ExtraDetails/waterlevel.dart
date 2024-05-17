@@ -9,7 +9,7 @@ class WaterLvlWidget extends StatelessWidget {
     super.key,
     required this.waterLevel,
     this.width = 400, // Default width
-    this.height = 80, // Default height
+    this.height = 100, // Default height
   });
 
   @override

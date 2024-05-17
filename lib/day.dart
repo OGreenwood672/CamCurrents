@@ -170,13 +170,24 @@ class _DayState extends State<Day> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(height: 30),
-                            Center(
-                              child: WindWidget(windspeed: getWindSpeed(getHourlyForecast(widget.day)), windDirection: getWindDirection(getHourlyForecast(widget.day)))
-                            ),
-                          const SizedBox(height: 15),
-                          const Center(
-                              child: WaterLvlWidget(waterLevel: "0.70m")
-                          ),  
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: WindWidget(
+                                    windspeed: getWindSpeed(getHourlyForecast(widget.day)),
+                                    windDirection: getWindDirection(getHourlyForecast(widget.day)),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 15), // Space between the widgets
+                              const Expanded(
+                                child: Center(
+                                  child: WaterLvlWidget(waterLevel: "0.70m"),
+                                ),
+                              ),
+                            ],
+                          ), 
                           const SizedBox(height: 15),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
