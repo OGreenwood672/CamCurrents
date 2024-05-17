@@ -22,6 +22,7 @@ class Day extends StatefulWidget {
 class _DayState extends State<Day> {
 
   double dayIconSize = 40;
+  double flagSize = 100;
 
   bool isFetching = false;
 
@@ -101,6 +102,23 @@ class _DayState extends State<Day> {
     );
   }
 
+  Widget buildFlag(day){
+
+    String flag = "grey";
+
+    if (day==0) {
+      flag = getFlag(getHourlyForecast(day)).toLowerCase();
+    }
+
+    print(flag);
+
+    return Image.asset(
+      "assets/images/rain1.png",
+      width: flagSize,
+      height: flagSize,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -162,8 +180,14 @@ class _DayState extends State<Day> {
                         ),
                       ),
                       Container(
+                        width: flagSize,
+                        height: flagSize,
+                        alignment: Alignment.center,
+                        child: buildFlag(widget.day),
+                      ),
+                      Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 300,
+                        height: 200,
                       ),
                       weatherTable
                     ],
@@ -237,9 +261,13 @@ class _DayState extends State<Day> {
     
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
+          Offset offset = Offset(1, 0);
+          if (index < widget.day){
+            offset = Offset(-1, 0);
+          }
           setState(() {
             Navigator.of(context).push(
-              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0, 1))
+              createRoute(Day(weatherData: _weatherData, day: index), offset)
             );
           });
         },

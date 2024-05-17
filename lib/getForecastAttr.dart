@@ -72,3 +72,10 @@ String getWaterLevel(Map<int, dynamic>? hourlyForecast) {
   }
   return "${hourlyForecast[23]["water_level"]}m";
 }
+
+String getFlag(Map<int, dynamic>? hourlyForecast) {
+  if (hourlyForecast == null){
+    return "grey";
+  }
+  return "${hourlyForecast[23]["flag"]}";
+}

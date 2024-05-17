@@ -7,6 +7,7 @@ class WeatherTable extends StatelessWidget {
   final int day;
 
   static const double weatherCardWidth = 160;
+  static const double weatherCardPadding = 8.0;
 
   const WeatherTable({super.key, required this.hourlyForecast, required this.day});
 
@@ -22,8 +23,6 @@ class WeatherTable extends StatelessWidget {
       offset = 0;
     }
 
-    ScrollController scrollController = ScrollController(initialScrollOffset: offset*weatherCardWidth, keepScrollOffset: false);
-
     List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
 
     return Container(
@@ -31,10 +30,10 @@ class WeatherTable extends StatelessWidget {
       height: 220,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        controller: scrollController,
+        controller: ScrollController(initialScrollOffset: offset*(weatherCardWidth+2*weatherCardPadding), keepScrollOffset: false),
         children: hours.map((hour) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(weatherCardPadding),
             child: WeatherCard(
               hour: hour,
               precipitation: getPrecipitation(hourlyForecast, hour), // Replace with actual value

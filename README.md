@@ -227,12 +227,22 @@
     <tr>
       <td>9/5/24</td>
       <td>2</td>
-      <td>Setup Flutter on laptop</td>
+      <td>Setup Flutter on laptop, and started project development</td>
     </tr>
     <tr>
       <td>14/5/24</td>
       <td>2</td>
       <td>Analysed and fetched data for weather</td>
+    </tr>
+    <tr>
+      <td>16/5/24</td>
+      <td>2</td>
+      <td>Worked on the weather table, as well as data integration</td>
+    </tr>
+    <tr>
+      <td>17/5/24</td>
+      <td>1</td>
+      <td>Finished weather table scrolling offset, seperated flag spritesheet and added to app</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
