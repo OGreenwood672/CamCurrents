@@ -181,9 +181,9 @@ class _DayState extends State<Day> {
                                 ),
                               ),
                               const SizedBox(width: 15), // Space between the widgets
-                              const Expanded(
+                              Expanded(
                                 child: Center(
-                                  child: WaterLvlWidget(waterLevel: "0.70m"),
+                                  child: WaterLvlWidget(waterLevel: getWaterLevel(getHourlyForecast(widget.day))),
                                 ),
                               ),
                             ],

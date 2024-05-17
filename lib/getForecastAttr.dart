@@ -65,3 +65,10 @@ int getUVIndex(Map<int, dynamic>? hourlyForecast) {
   }
   return hourlyForecast[getCurrentHour()]["uv_index"].round();
 }
+
+String getWaterLevel(Map<int, dynamic>? hourlyForecast) {
+  if (hourlyForecast == null) {
+    return "0m";
+  }
+  return "${hourlyForecast[23]["water_level"]}m";
+}
