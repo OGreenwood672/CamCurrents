@@ -10,8 +10,9 @@ import 'package:flutter/material.dart';
 
 class Day extends StatefulWidget {
   final int day;
+  final Map<int, dynamic>? weatherData;
 
-  const Day({super.key, required this.day});
+  const Day({super.key, required this.weatherData, required this.day});
 
   @override
   State<Day> createState() => _DayState();
@@ -21,21 +22,29 @@ class _DayState extends State<Day> {
 
   double dayIconSize = 40;
 
-  Map<int, dynamic>? weatherData;
   bool isFetching = false;
+
+  Map<int, dynamic>? _weatherData;
 
   static const int numberDaysShown = 5;
   final int realDay;
 
   _DayState() : realDay = (DateTime.now().weekday - 1);
 
-  void getData() {
-    Future<Map<int, dynamic>> futureForecast = getForcast();
-    futureForecast.then((data) {
-      setState(() {
-        weatherData = data;
+  @override
+  void initState() {
+    super.initState();
+    
+    if (widget.weatherData == null) {
+      Future<Map<int, dynamic>> futureForecast = getForcast();
+      futureForecast.then((data) {
+        setState(() {
+          _weatherData = data;
+        });
       });
-    });
+    } else {
+      _weatherData = widget.weatherData;
+    }
   }
 
   String getDay(day) {
@@ -45,15 +54,11 @@ class _DayState extends State<Day> {
 
   Map<int, dynamic>? getHourlyForecast(day) {
 
-      if (weatherData == null) {
-        if (!isFetching) {
-          isFetching = true;
-          getData();
-        }
+      if (_weatherData == null) {
         return null;
       }
       if (0 > day || day > 4) { return null; }
-      return weatherData?[day]["hourly_forecast"];
+      return _weatherData?[day]["hourly_forecast"];
   }
 
 
@@ -88,11 +93,11 @@ class _DayState extends State<Day> {
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! > 0 && widget.day > 0) {
             Navigator.of(context).push(
-              createRoute(Day(day: widget.day - 1), const Offset(-1, 0))
+              createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
             );
-          } else if (details.primaryVelocity! < 0 && widget.day < 3) {
+          } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown) {
             Navigator.of(context).push(
-              createRoute(Day(day: widget.day + 1), const Offset(1, 0))
+              createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
             );
           }
         },
@@ -206,7 +211,7 @@ class _DayState extends State<Day> {
         onDestinationSelected: (int index) {
           setState(() {
             Navigator.of(context).push(
-              createRoute(Day(day: index), const Offset(0, 1))
+              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0, 1))
             );
           });
         },
