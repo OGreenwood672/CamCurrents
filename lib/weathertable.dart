@@ -6,6 +6,8 @@ class WeatherTable extends StatelessWidget {
   final Map<int, dynamic>? hourlyForecast;
   final int day;
 
+  static const double weatherCardWidth = 160;
+
   const WeatherTable({super.key, required this.hourlyForecast, required this.day});
 
   @override
@@ -14,16 +16,13 @@ class WeatherTable extends StatelessWidget {
     int endHour = 23;
 
     int offset = 6;
-    double width = 500;
 
     if (day == 0){
       currentHour = DateTime.now().hour;
       offset = 0;
     }
 
-    print(offset*width);
-
-    ScrollController scrollController = ScrollController(initialScrollOffset: offset*width, keepScrollOffset: false);
+    ScrollController scrollController = ScrollController(initialScrollOffset: offset*weatherCardWidth, keepScrollOffset: false);
 
     List<int> hours = List.generate(endHour - currentHour + 1, (index) => currentHour + index);
 
@@ -40,6 +39,7 @@ class WeatherTable extends StatelessWidget {
               hour: hour,
               precipitation: getPrecipitation(hourlyForecast, hour), // Replace with actual value
               temperature: getTemp(hourlyForecast, hour), // Replace with actual value
+              width: weatherCardWidth,
             ),
           );
         }).toList(),
@@ -53,11 +53,13 @@ class WeatherCard extends StatelessWidget {
   final int hour;
   final String precipitation;
   final String temperature;
+  final double width;
 
   const WeatherCard({
     required this.hour,
     required this.precipitation,
     required this.temperature,
+    required this.width,
     super.key,
   });
 
@@ -66,7 +68,7 @@ class WeatherCard extends StatelessWidget {
     return Card(
       color: const Color.fromARGB(150, 255, 255, 255),
       child: SizedBox(
-        width: 160, // Adjust according to your need
+        width: width, // Adjust according to your need
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
