@@ -71,6 +71,11 @@
       <td>2</td>
       <td>Implemented data and redid the files layout</td>
     </tr>
+    <tr>
+      <td>17/5/24</td>
+      <td>3</td>
+      <td>Added more data to DB, implemented that data in the app. Made the data not be fetched on every page change</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>
