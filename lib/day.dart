@@ -62,6 +62,10 @@ class _DayState extends State<Day> {
       return _weatherData?[day]["hourly_forecast"];
   }
 
+//String chooseBackground(){
+  //  Map<int,dynamic> weather = getHourlyForecast(widget.day);
+   // if (weather[])
+  //}
 
   Widget buildNavigationDestination(int day) {
     return NavigationDestination(
