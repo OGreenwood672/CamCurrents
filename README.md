@@ -175,6 +175,11 @@
       <td>2</td>
       <td>Reformatted background images and added them into app.</td>
     </tr>
+    <tr>
+      <td>17/5/24</td>
+      <td>1.5</td>
+      <td>Added background changing logic based on current weather and worked on drawing an app icon</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>

@@ -61,11 +61,30 @@ class _DayState extends State<Day> {
       if (0 > day || day > 4) { return null; }
       return _weatherData?[day]["hourly_forecast"];
   }
-
-//String chooseBackground(){
-  //  Map<int,dynamic> weather = getHourlyForecast(widget.day);
-   // if (weather[])
-  //}
+  
+  AssetImage chooseBg(){
+    int currentHour = DateTime.now().hour;
+    if (currentHour >=20 || currentHour <= 3){
+      return AssetImage( 'assets/images/night_bg.png');
+    } else {
+      Map<int, dynamic>? hourlyForecast = getHourlyForecast(widget.day);
+      if (hourlyForecast != null) {
+        if (hourlyForecast[currentHour]["precipitation"]>=40 &&  hourlyForecast[currentHour]["precipitation"]<=70){
+          return AssetImage('assets/images/rainy.gif');
+        } else if (hourlyForecast[currentHour]["precipitation"]>70 && hourlyForecast[currentHour]["wind_speed"]>=25){
+          return AssetImage('assets/images/stormy.gif');
+        } else if (hourlyForecast[currentHour]["precipitation"]<40 && hourlyForecast[currentHour]["cloud_cover"]>=70){
+          return AssetImage('assets/images/cloudy_bg.png');
+        } else if (hourlyForecast[currentHour]["cloud_cover"]<70 && hourlyForecast[currentHour]["cloud_cover"]>=40 && hourlyForecast[currentHour]["temperature"]>=10 && hourlyForecast[currentHour]["temperature"]<20){
+          return AssetImage('assets/images/sunWithClouds_bg.png');
+        } else {
+          return AssetImage('assets/images/sunny_bg.png');
+        }
+      } else {
+        return AssetImage('assets/images/sunny_bg.png');
+      }
+    }
+  }
 
   Widget buildNavigationDestination(int day) {
     return NavigationDestination(
@@ -114,9 +133,9 @@ class _DayState extends State<Day> {
                   Container( //Background Top Page
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/sunny_bg.png'),
+                        image: chooseBg(),
                         fit: BoxFit.fill,
                       )
                     ),
