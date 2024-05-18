@@ -1,3 +1,4 @@
+import 'package:camcurrents/ExtraDetails/humidity.dart';
 import 'package:camcurrents/ExtraDetails/sun.dart';
 import 'package:camcurrents/ExtraDetails/uv.dart';
 import 'package:camcurrents/ExtraDetails/wind.dart';
@@ -211,7 +212,7 @@ class _DayState extends State<Day> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               Expanded(
@@ -220,6 +221,22 @@ class _DayState extends State<Day> {
                                     windspeed: getWindSpeed(getHourlyForecast(widget.day)),
                                     windDirection: getWindDirection(getHourlyForecast(widget.day)),
                                   ),
+                                ),
+                              ),
+                              const SizedBox(width: 15), // Space between the widgets
+                              Expanded(
+                                child: Center(
+                                  child: WaterLvlWidget(waterLevel: getWaterLevel(getHourlyForecast(widget.day))),
+                                ),
+                              ),
+                            ],
+                          ), 
+                          const SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: HumidityWidget(humidity: getHumidity(getHourlyForecast(widget.day))),
                                 ),
                               ),
                               const SizedBox(width: 15), // Space between the widgets
@@ -243,7 +260,7 @@ class _DayState extends State<Day> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 50),
                         ],
                       ),
                     )
