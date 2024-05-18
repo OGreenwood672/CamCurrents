@@ -43,6 +43,8 @@ app.*.map.json
 /android/app/release
 /android/key.properties
 
+/key/
+
 .vscode
 
 # Default Flutter Project
