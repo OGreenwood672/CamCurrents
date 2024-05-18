@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class WindWidget extends StatelessWidget {
   final String windspeed;
-  final String windDirection;
   final double width;
   final double height;
 
   const WindWidget({
     super.key,
     required this.windspeed,
-    required this.windDirection,
     this.width = 400, // Default width
     this.height = 100, // Default height
   });
@@ -30,24 +28,17 @@ class WindWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Wind",
+              "Wind Speed",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 //fontWeight:FontWeight.bold,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
             Text(
               windspeed,
               style: const TextStyle(
                 fontSize: 20,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              windDirection,
-              style: const TextStyle(
-                fontSize: 14,
                 color: Colors.white,
               ),
             ),

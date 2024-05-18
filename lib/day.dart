@@ -2,6 +2,7 @@ import 'package:camcurrents/ExtraDetails/humidity.dart';
 import 'package:camcurrents/ExtraDetails/sun.dart';
 import 'package:camcurrents/ExtraDetails/uv.dart';
 import 'package:camcurrents/ExtraDetails/wind.dart';
+import 'package:camcurrents/ExtraDetails/wind_direction.dart';
 import 'package:camcurrents/ExtraDetails/waterlevel.dart';
 import 'package:camcurrents/fetchForecast.dart';
 import 'package:camcurrents/flag.dart';
@@ -219,14 +220,15 @@ class _DayState extends State<Day> {
                                 child: Center(
                                   child: WindWidget(
                                     windspeed: getWindSpeed(getHourlyForecast(widget.day)),
-                                    windDirection: getWindDirection(getHourlyForecast(widget.day)),
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 15), // Space between the widgets
                               Expanded(
                                 child: Center(
-                                  child: WaterLvlWidget(waterLevel: getWaterLevel(getHourlyForecast(widget.day))),
+                                  child: WindDirectionWidget(
+                                    windDirection: getWindDirection(getHourlyForecast(widget.day)),
+                                  ),
                                 ),
                               ),
                             ],
