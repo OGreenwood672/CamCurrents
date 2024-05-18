@@ -43,9 +43,13 @@ class _DayState extends State<Day> {
     if (widget.weatherData == null) {
       Future<Map<int, dynamic>> futureForecast = getForcast();
       futureForecast.then((data) {
-        setState(() {
-          _weatherData = data;
-        });
+        try {
+          setState(() {
+            _weatherData = data;
+          });
+        } catch (e) {
+          return;
+        }
       });
     } else {
       _weatherData = widget.weatherData;
@@ -120,11 +124,11 @@ class _DayState extends State<Day> {
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! > 0 && widget.day > 0) {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
             );
           } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown - 1) {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
             );
           }
@@ -252,13 +256,9 @@ class _DayState extends State<Day> {
     
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          Offset offset = const Offset(1, 0);
-          if (index < widget.day){
-            offset = const Offset(-1, 0);
-          }
           setState(() {
-            Navigator.of(context).push(
-              createRoute(Day(weatherData: _weatherData, day: index), offset)
+            Navigator.of(context).pushReplacement(
+              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0.0, -1.0))
             );
           });
         },
