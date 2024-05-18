@@ -43,7 +43,7 @@ class _DayState extends State<Day> {
     super.initState();
     
     if (widget.weatherData == null) {
-      Future<Map<int, dynamic>> futureForecast = getForcast();
+      Future<Map<int, dynamic>?> futureForecast = getForcast();
       futureForecast.then((data) {
         try {
           setState(() {
