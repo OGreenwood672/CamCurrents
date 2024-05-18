@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class WindWidget extends StatelessWidget {
+class WindSpeedWidget extends StatelessWidget {
   final String windspeed;
   final double width;
   final double height;
 
-  const WindWidget({
+  const WindSpeedWidget({
     super.key,
     required this.windspeed,
     this.width = 400, // Default width

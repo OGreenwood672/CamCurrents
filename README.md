@@ -298,6 +298,11 @@
       <td>0.5</td>
       <td>Worked on some widgets in extra details</td>
     </tr>
+    <tr>
+      <td>18/5/24</td>
+      <td>0.5</td>
+      <td>Worked on some widgets in extra details</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>
