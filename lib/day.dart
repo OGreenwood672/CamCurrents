@@ -3,6 +3,7 @@ import 'package:camcurrents/ExtraDetails/uv.dart';
 import 'package:camcurrents/ExtraDetails/wind.dart';
 import 'package:camcurrents/ExtraDetails/waterlevel.dart';
 import 'package:camcurrents/fetchForecast.dart';
+import 'package:camcurrents/flag.dart';
 import 'package:camcurrents/getForecastAttr.dart';
 import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
@@ -23,6 +24,8 @@ class _DayState extends State<Day> {
 
   double dayIconSize = 40;
   double flagSize = 100;
+
+  bool night = false;
 
   bool isFetching = false;
 
@@ -65,24 +68,26 @@ class _DayState extends State<Day> {
   
   AssetImage chooseBg(){
     int currentHour = DateTime.now().hour;
-    if (currentHour >=20 || currentHour <= 3){
-      return AssetImage( 'assets/images/night_bg.png');
+    if (currentHour >= 20 || currentHour <= 3){
+      night = true;
+      return const AssetImage('assets/images/night_bg.png');
     } else {
       Map<int, dynamic>? hourlyForecast = getHourlyForecast(widget.day);
+      night = false;
       if (hourlyForecast != null) {
         if (hourlyForecast[currentHour]["precipitation"]>=40 &&  hourlyForecast[currentHour]["precipitation"]<=70){
-          return AssetImage('assets/images/rainy.gif');
+          return const AssetImage('assets/images/rainy.gif');
         } else if (hourlyForecast[currentHour]["precipitation"]>70 && hourlyForecast[currentHour]["wind_speed"]>=25){
-          return AssetImage('assets/images/stormy.gif');
+          return const AssetImage('assets/images/stormy.gif');
         } else if (hourlyForecast[currentHour]["precipitation"]<40 && hourlyForecast[currentHour]["cloud_cover"]>=70){
-          return AssetImage('assets/images/cloudy_bg.png');
+          return const AssetImage('assets/images/cloudy_bg.png');
         } else if (hourlyForecast[currentHour]["cloud_cover"]<70 && hourlyForecast[currentHour]["cloud_cover"]>=40 && hourlyForecast[currentHour]["temperature"]>=10 && hourlyForecast[currentHour]["temperature"]<20){
-          return AssetImage('assets/images/sunWithClouds_bg.png');
+          return const AssetImage('assets/images/sunWithClouds_bg.png');
         } else {
-          return AssetImage('assets/images/sunny_bg.png');
+          return const AssetImage('assets/images/sunny_bg.png');
         }
       } else {
-        return AssetImage('assets/images/sunny_bg.png');
+        return const AssetImage('assets/images/sunny_bg.png');
       }
     }
   }
@@ -102,23 +107,6 @@ class _DayState extends State<Day> {
     );
   }
 
-  Widget buildFlag(day){
-
-    String flag = "grey";
-
-    if (day==0) {
-      flag = getFlag(getHourlyForecast(day)).toLowerCase();
-    }
-
-    print(flag);
-
-    return Image.asset(
-      "assets/images/rain1.png",
-      width: flagSize,
-      height: flagSize,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -126,8 +114,6 @@ class _DayState extends State<Day> {
     for (int i=0; i<numberDaysShown; i++){
       destinations.add(buildNavigationDestination(i));
     }
-
-    WeatherTable weatherTable = WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day);
 
     return Scaffold(
       appBar: null,
@@ -137,7 +123,7 @@ class _DayState extends State<Day> {
             Navigator.of(context).push(
               createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
             );
-          } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown) {
+          } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown - 1) {
             Navigator.of(context).push(
               createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
             );
@@ -161,7 +147,7 @@ class _DayState extends State<Day> {
                   ),
               
                   Column( // Top Page Content
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       // Top section
                       Container(
@@ -169,13 +155,18 @@ class _DayState extends State<Day> {
                         height: 100,
                       ),
                       Container(
-                        width: 100,
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: Text(
-                          getDay(widget.day),
-                          style: const TextStyle(
-                            fontSize: 30,
+                        padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0, bottom: 10.0), // Padding to give some space around the text
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(night ? 150 : 0, 7, 7, 7), // Background color
+                          borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                        ),
+                        child: IntrinsicWidth(
+                          child: Text(
+                            getDay(widget.day),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: night ? Colors.white : Colors.black
+                            ),
                           ),
                         ),
                       ),
@@ -183,13 +174,13 @@ class _DayState extends State<Day> {
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
-                        child: buildFlag(widget.day),
+                        child: widget.day == 0 ? Container() : Flag(flagSize: 50, flag: getFlag(getHourlyForecast(widget.day)).toLowerCase()),
                       ),
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 200,
+                        height: 150,
                       ),
-                      weatherTable
+                      WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
                     ],
                   )
                 ],
@@ -261,9 +252,9 @@ class _DayState extends State<Day> {
     
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          Offset offset = Offset(1, 0);
+          Offset offset = const Offset(1, 0);
           if (index < widget.day){
-            offset = Offset(-1, 0);
+            offset = const Offset(-1, 0);
           }
           setState(() {
             Navigator.of(context).push(
