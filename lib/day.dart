@@ -100,6 +100,22 @@ class _DayState extends State<Day> {
     }
   }
 
+  void leftArrowPress () {
+    if (widget.day > 0) {
+      Navigator.of(context).pushReplacement(
+        createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
+      );
+    }
+  }
+
+  void rightArrowPress () {
+    if (widget.day < numberDaysShown - 1) {
+      Navigator.of(context).pushReplacement(
+        createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
+      );
+    }
+  }
+
   Widget buildNavigationDestination(int day) {
     return NavigationDestination(
       selectedIcon: ColorFiltered(
@@ -184,11 +200,10 @@ class _DayState extends State<Day> {
                       ),
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        Container(
-                          width: arrowSize,
-                          height: arrowSize,
-                          alignment: Alignment.centerLeft,
-                          child: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
+                        IconButton(
+                          iconSize: arrowSize,
+                          onPressed: leftArrowPress,
+                          icon: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
                         ),
                         Container(
                         width: flagSize,
@@ -196,11 +211,10 @@ class _DayState extends State<Day> {
                         alignment: Alignment.center,
                         child: Flag(flagSize: flagSize, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
                       ),
-                        Container(
-                          width: arrowSize,
-                          height: arrowSize,
-                          alignment: Alignment.centerRight,
-                          child: Arrow(arrowSize: arrowSize, direction: 'right', visible: (widget.day < numberDaysShown ? true : false)),
+                        IconButton(
+                          iconSize: arrowSize,
+                          onPressed: rightArrowPress,
+                          icon: Arrow(arrowSize: arrowSize, direction: 'right', visible: (widget.day < numberDaysShown - 1 ? true : false)),
                         ),
                         ],
                       ),
