@@ -110,9 +110,7 @@ class _DayState extends State<Day> {
       flag = getFlag(getHourlyForecast(day)).toLowerCase();
     }
 
-    print(flag);
-
-    return Image.asset(
+    return Image.asset( // TODO: add flag image files, and change address here
       "assets/images/rain1.png",
       width: flagSize,
       height: flagSize,
