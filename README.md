@@ -76,6 +76,16 @@
       <td>3</td>
       <td>Added more data to DB, implemented that data in the app. Made the data not be fetched on every page change</td>
     </tr>
+    <tr>
+      <td>17/5/24</td>
+      <td>2</td>
+      <td>Added water level and setup an android key signing</td>
+    </tr>
+    <tr>
+      <td>18/5/24</td>
+      <td>1</td>
+      <td>Fixed data collection and moved flag to different file</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>
@@ -295,6 +305,11 @@
     </tr>
     <tr>
       <td>17/5/24</td>
+      <td>0.5</td>
+      <td>Worked on some widgets in extra details</td>
+    </tr>
+    <tr>
+      <td>18/5/24</td>
       <td>0.5</td>
       <td>Worked on some widgets in extra details</td>
     </tr>

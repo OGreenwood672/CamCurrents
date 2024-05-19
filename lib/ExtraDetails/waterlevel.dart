@@ -31,7 +31,7 @@ class WaterLvlWidget extends StatelessWidget {
               "Water Level",
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
             Text(

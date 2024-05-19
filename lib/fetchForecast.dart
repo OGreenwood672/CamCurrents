@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 
 //* Get Hourly Forecast of Day by Date
-Future<List<dynamic>> fetchForecast(String date) async {
+Future<List<dynamic>?> fetchForecast(String date) async {
   try {
     var resp = await http.get(Uri.parse('https://cam-currents-backend-ogreenwood672s-projects.vercel.app/get-data-by-date?date=$date'));
 
@@ -18,12 +18,11 @@ Future<List<dynamic>> fetchForecast(String date) async {
   } catch (e) {
     // ignore: avoid_print
     print('[ERROR] Failed to fetch data: $e');
-    throw Error();
   }
-  return [];
+  return null;
 }
 
-Future<List<dynamic>> fetchForecastDate(DateTime date) async {
+Future<List<dynamic>?> fetchForecastDate(DateTime date) async {
   return fetchForecast(DateFormat('yyyy-MM-dd').format(date));
 }
 
@@ -41,7 +40,7 @@ Future<List<dynamic>> fetchForecastDate(DateTime date) async {
 //    - "humidity"
 //    - "precipitation"
 // Value: value of weather type, e.g. "11.6"
-Future<Map<int, dynamic>> getForcast() async {
+Future<Map<int, dynamic>?> getForcast() async {
 
   Map<int, dynamic> weather = {};
 
@@ -50,22 +49,27 @@ Future<Map<int, dynamic>> getForcast() async {
     DateTime date = DateTime.now().add(Duration(days: i));
 
     var jsonHourlyForecast = await fetchForecastDate(date);
+    if (jsonHourlyForecast != null) {
 
-    Map<int, Map<String, dynamic>> hourlyForecast= {};
+      Map<int, Map<String, dynamic>> hourlyForecast= {};
 
-    for (final Map<String, dynamic> line in jsonHourlyForecast){
-      Map<String, dynamic> entry = line;
-      var time = entry["time"].toString().substring(0, 2);
-      var inttime = int.parse(time);
-      hourlyForecast[inttime] = entry;
+      for (final Map<String, dynamic> line in jsonHourlyForecast){
+        Map<String, dynamic> entry = line;
+        var time = entry["time"].toString().substring(0, 2);
+        var inttime = int.parse(time);
+        hourlyForecast[inttime] = entry;
+      }
+
+      Map<String, dynamic> forecast = {
+        "day": getDayName(date),
+        "hourly_forecast": hourlyForecast
+      };
+
+      weather[i] = forecast;
+
+    } else {
+      return null;
     }
-
-    Map<String, dynamic> forecast = {
-      "day": getDayName(date),
-      "hourly_forecast": hourlyForecast
-    };
-
-    weather[i] = forecast;
 
   }
   return weather;

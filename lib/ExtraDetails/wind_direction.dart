@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HumidityWidget extends StatelessWidget {
-  final String humidity;
+class WindDirectionWidget extends StatelessWidget {
+  final String windDirection;
   final double width;
   final double height;
 
-  const HumidityWidget({
+  const WindDirectionWidget({
     super.key,
-    required this.humidity,
+    required this.windDirection,
     this.width = 400, // Default width
     this.height = 100, // Default height
   });
@@ -28,14 +28,15 @@ class HumidityWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Humidity",
+              "Wind Direction",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
+                //fontWeight:FontWeight.bold,
                 color: Colors.white70,
               ),
             ),
             Text(
-              humidity,
+              windDirection,
               style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
