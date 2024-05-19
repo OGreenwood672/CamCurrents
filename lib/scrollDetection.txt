@@ -12,5 +12,30 @@
     _scrollController.addListener(_handleScroll);
   }
 
+final ScrollController _controller = ScrollController();
+
+// This is what you're looking for!
+void _scrollDown() {
+  _controller.animateTo(
+    _controller.position.maxScrollExtent,
+    duration: Duration(seconds: 2),
+    curve: Curves.fastOutSlowIn,
+  );
+}
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    floatingActionButton: FloatingActionButton.small(
+      onPressed: _scrollDown,
+      child: Icon(Icons.arrow_downward),
+    ),
+    body: ListView.builder(
+      controller: _controller,
+      itemCount: 21,
+      itemBuilder: (_, i) => ListTile(title: Text('Item $i')),          
+    ),
+  );
+}
 
   (add 'controller: _scrollController' to SingleChildScrollView in mainpage.dart)

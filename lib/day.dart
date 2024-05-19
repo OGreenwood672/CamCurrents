@@ -6,6 +6,7 @@ import 'package:camcurrents/ExtraDetails/wind_direction.dart';
 import 'package:camcurrents/ExtraDetails/waterlevel.dart';
 import 'package:camcurrents/fetchForecast.dart';
 import 'package:camcurrents/flag.dart';
+import 'package:camcurrents/arrow.dart';
 import 'package:camcurrents/getForecastAttr.dart';
 import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
@@ -180,11 +181,27 @@ class _DayState extends State<Day> {
                         color: const Color.fromARGB(0, 0, 0, 0),
                         height: 40,
                       ),
-                      Container(
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                        Container(
+                          width: flagSize,
+                          height: flagSize,
+                          alignment: Alignment.centerLeft,
+                          child: Arrow(arrowSize: 100, direction: 'left', visible: (widget.day > 0 ? true : false)),
+                        ),
+                        Container(
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
                         child: Flag(flagSize: 100, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
+                      ),
+                        Container(
+                          width: flagSize,
+                          height: flagSize,
+                          alignment: Alignment.centerRight,
+                          child: Arrow(arrowSize: 100, direction: 'right', visible: (widget.day < numberDaysShown ? true : false)),
+                        ),
+                        ],
                       ),
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
