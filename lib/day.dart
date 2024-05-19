@@ -277,7 +277,7 @@ class _DayState extends State<Day> {
         onDestinationSelected: (int index) {
           setState(() {
             Navigator.of(context).pushReplacement(
-              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0.0, -1.0))
+              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0.0, 1.0))
             );
           });
         },
