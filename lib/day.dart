@@ -218,7 +218,7 @@ class _DayState extends State<Day> {
                 children: [
                   Container( //Background Bottom Page
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    // height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/underwater_bg.png'),
