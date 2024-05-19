@@ -24,7 +24,7 @@ class Day extends StatefulWidget {
 
 class _DayState extends State<Day> {
 
-  double dayIconSize = 40;
+  double dayIconSize = 30;
   double flagSize = 100;
 
   bool night = false;
@@ -101,7 +101,7 @@ class _DayState extends State<Day> {
   Widget buildNavigationDestination(int day) {
     return NavigationDestination(
       selectedIcon: ColorFiltered(
-        colorFilter: const ColorFilter.mode(Color.fromARGB(255, 27, 106, 234), BlendMode.srcIn),
+        colorFilter: const ColorFilter.mode(Color.fromARGB(255, 255, 255, 234), BlendMode.srcIn),
         child: Image.asset(
           'assets/icons/${getDay(day).toLowerCase()}.png',
           width: dayIconSize,
@@ -110,21 +110,6 @@ class _DayState extends State<Day> {
       ),
       icon: Image.asset('assets/icons/${getDay(day).toLowerCase()}.png', width: dayIconSize, height: dayIconSize),
       label: "",
-    );
-  }
-
-  Widget buildFlag(day){
-
-    String flag = "grey";
-
-    if (day==0) {
-      flag = getFlag(getHourlyForecast(day)).toLowerCase();
-    }
-
-    return Image.asset( // TODO: add flag image files, and change address here
-      "assets/images/rain1.png",
-      width: flagSize,
-      height: flagSize,
     );
   }
 
@@ -192,14 +177,18 @@ class _DayState extends State<Day> {
                         ),
                       ),
                       Container(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        height: 40,
+                      ),
+                      Container(
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
-                        child: widget.day == 0 ? Container() : Flag(flagSize: 50, flag: getFlag(getHourlyForecast(widget.day)).toLowerCase()),
+                        child: Flag(flagSize: 100, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
                       ),
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 150,
+                        height: 110,
                       ),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
                     ],
@@ -291,14 +280,20 @@ class _DayState extends State<Day> {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
+            if (index == widget.day) {return;}
+            Offset offset = index < widget.day ? const Offset(-1.0, 0.0) : const Offset(1.0, 0.0);
             Navigator.of(context).pushReplacement(
-              createRoute(Day(weatherData: _weatherData, day: index), const Offset(0.0, 1.0))
+              createRoute(Day(weatherData: _weatherData, day: index), offset)
             );
           });
         },
         // indicatorColor: Colors.amber,
         selectedIndex: widget.day,
-        destinations: destinations
+        destinations: destinations,
+        backgroundColor: const Color.fromRGBO(0, 74, 126, 1),
+        indicatorColor: const Color.fromRGBO(0, 141, 199, 1),
+        indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        
       ),
     );
   }

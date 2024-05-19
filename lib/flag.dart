@@ -14,7 +14,7 @@ class Flag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      "assets/images/rain1.png",
+      "assets/images/${flag}flag.png",
       width: flagSize,
       height: flagSize,
     );
