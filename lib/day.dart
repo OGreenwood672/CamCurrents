@@ -27,6 +27,7 @@ class _DayState extends State<Day> {
 
   double dayIconSize = 30;
   double flagSize = 100;
+  double arrowSize = 75;
 
   bool night = false;
 
@@ -184,22 +185,22 @@ class _DayState extends State<Day> {
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                         Container(
-                          width: flagSize,
-                          height: flagSize,
+                          width: arrowSize,
+                          height: arrowSize,
                           alignment: Alignment.centerLeft,
-                          child: Arrow(arrowSize: 100, direction: 'left', visible: (widget.day > 0 ? true : false)),
+                          child: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
                         ),
                         Container(
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
-                        child: Flag(flagSize: 100, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
+                        child: Flag(flagSize: flagSize, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
                       ),
                         Container(
-                          width: flagSize,
-                          height: flagSize,
+                          width: arrowSize,
+                          height: arrowSize,
                           alignment: Alignment.centerRight,
-                          child: Arrow(arrowSize: 100, direction: 'right', visible: (widget.day < numberDaysShown ? true : false)),
+                          child: Arrow(arrowSize: arrowSize, direction: 'right', visible: (widget.day < numberDaysShown ? true : false)),
                         ),
                         ],
                       ),
