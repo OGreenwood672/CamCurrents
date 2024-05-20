@@ -255,9 +255,14 @@
       <td>Worked on the weather table, as well as data integration</td>
     </tr>
     <tr>
-      <td>17/5/24</td>
+      <td>19/5/24</td>
       <td>1</td>
       <td>Finished weather table scrolling offset, seperated flag spritesheet and added to app</td>
+    </tr>
+    <tr>
+      <td>20/5/24</td>
+      <td>2</td>
+      <td>Added lighting up and lighting down, as well as flag predictions</td>
     </tr>
     <!-- Add more rows as needed -->
   </tbody>
