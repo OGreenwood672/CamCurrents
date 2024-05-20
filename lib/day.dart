@@ -8,6 +8,7 @@ import 'package:camcurrents/fetchForecast.dart';
 import 'package:camcurrents/flag.dart';
 import 'package:camcurrents/arrow.dart';
 import 'package:camcurrents/getForecastAttr.dart';
+import 'package:camcurrents/lighting.dart';
 import 'package:camcurrents/navigation.dart';
 import 'package:camcurrents/weathertable.dart';
 
@@ -16,8 +17,9 @@ import 'package:flutter/material.dart';
 class Day extends StatefulWidget {
   final int day;
   final Map<int, dynamic>? weatherData;
+  final Map<String, Map<String, dynamic>>? lightingTimes;
 
-  const Day({super.key, required this.weatherData, required this.day});
+  const Day({super.key, required this.weatherData, required this.lightingTimes, required this.day});
 
   @override
   State<Day> createState() => _DayState();
@@ -34,6 +36,7 @@ class _DayState extends State<Day> {
   bool isFetching = false;
 
   Map<int, dynamic>? _weatherData;
+  Map<String, Map<String, dynamic>>? _lightingTimes;
 
   static const int numberDaysShown = 5;
   final int realDay;
@@ -57,6 +60,22 @@ class _DayState extends State<Day> {
       });
     } else {
       _weatherData = widget.weatherData;
+    }
+
+    if (widget.lightingTimes == null){
+
+      Future<Map<String, Map<String, dynamic>>> futureLighting = getLighting();
+      futureLighting.then((data) {
+        try {
+          setState(() {
+            _lightingTimes = data;
+          });
+        } catch (e) {
+          return;
+        }
+      });
+    } else {
+      _lightingTimes = widget.lightingTimes;
     }
   }
 
@@ -103,7 +122,7 @@ class _DayState extends State<Day> {
   void leftArrowPress () {
     if (widget.day > 0) {
       Navigator.of(context).pushReplacement(
-        createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
+        createRoute(Day(weatherData: _weatherData, lightingTimes: _lightingTimes, day: widget.day - 1), const Offset(-1, 0))
       );
     }
   }
@@ -111,7 +130,7 @@ class _DayState extends State<Day> {
   void rightArrowPress () {
     if (widget.day < numberDaysShown - 1) {
       Navigator.of(context).pushReplacement(
-        createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
+        createRoute(Day(weatherData: _weatherData, lightingTimes: _lightingTimes, day: widget.day + 1), const Offset(1, 0))
       );
     }
   }
@@ -145,11 +164,11 @@ class _DayState extends State<Day> {
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! > 0 && widget.day > 0) {
             Navigator.of(context).pushReplacement(
-              createRoute(Day(weatherData: _weatherData, day: widget.day - 1), const Offset(-1, 0))
+              createRoute(Day(weatherData: _weatherData, lightingTimes: _lightingTimes, day: widget.day - 1), const Offset(-1, 0))
             );
           } else if (details.primaryVelocity! < 0 && widget.day < numberDaysShown - 1) {
             Navigator.of(context).pushReplacement(
-              createRoute(Day(weatherData: _weatherData, day: widget.day + 1), const Offset(1, 0))
+              createRoute(Day(weatherData: _weatherData, lightingTimes: _lightingTimes, day: widget.day + 1), const Offset(1, 0))
             );
           }
         },
@@ -301,7 +320,7 @@ class _DayState extends State<Day> {
                               ),
                               const SizedBox(width: 20), // Adjust spacing between widgets
                               Flexible(
-                                child: SunsetTimeWidget(sunriseTime: getSunrise(getHourlyForecast(widget.day)), sunsetTime: getSunset(getHourlyForecast(widget.day))),
+                                child: SunsetTimeWidget(sunriseTime: getSunrise(_lightingTimes, widget.day), sunsetTime: getSunset(_lightingTimes, widget.day)),
                               ),
                             ],
                           ),
@@ -322,7 +341,7 @@ class _DayState extends State<Day> {
             if (index == widget.day) {return;}
             Offset offset = index < widget.day ? const Offset(-1.0, 0.0) : const Offset(1.0, 0.0);
             Navigator.of(context).pushReplacement(
-              createRoute(Day(weatherData: _weatherData, day: index), offset)
+              createRoute(Day(weatherData: _weatherData, lightingTimes: _lightingTimes, day: index), offset)
             );
           });
         },

@@ -11,6 +11,7 @@ class UVIndexWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.transparent,

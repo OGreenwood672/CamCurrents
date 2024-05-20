@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: "Rony"
       ),
-      home: const Day(weatherData: null, day: 0),
+      home: const Day(weatherData: null, lightingTimes: null, day: 0),
     );
   }
 }

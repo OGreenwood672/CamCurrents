@@ -1,6 +1,8 @@
 
 
 
+import 'package:intl/intl.dart';
+
 int getCurrentHour() {
   DateTime currentTime = DateTime.now();
   return currentTime.hour;
@@ -52,18 +54,26 @@ String getHumidity(Map<int, dynamic>? hourlyForecast) {
   return "${hourlyForecast[getCurrentHour()]["humidity"].round()}%";
 }
 
-String getSunrise(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
-    return "--:--";
-  }
-  return hourlyForecast[23]["sunrise"].substring(0, 5);
+String getDateString(int day){
+  DateTime date = DateTime.now().add(Duration(days: day));
+  return DateFormat("yyyyMMdd").format(date);
 }
 
-String getSunset(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
+String getSunrise(Map<String, Map<String, dynamic>>? lightingTimes, int day) {
+  if (lightingTimes == null) {
     return "--:--";
   }
-  return hourlyForecast[23]["sunset"].substring(0, 5);
+  
+  String dateString = getDateString(day);
+  return lightingTimes[dateString]?["Friendly_Down"];
+}
+
+String getSunset(Map<String, Map<String, dynamic>>? lightingTimes, int day) {
+  if (lightingTimes == null) {
+    return "--:--";
+  }
+  String dateString = getDateString(day);
+  return lightingTimes[dateString]?["Friendly_Up"];
 }
 
 int getUVIndex(Map<int, dynamic>? hourlyForecast) {
