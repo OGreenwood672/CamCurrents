@@ -39,7 +39,7 @@ class SunsetTimeWidget extends StatelessWidget {
 
     return Container(
       height: 100,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 18, bottom: 18, left: 10, right: 10),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
@@ -53,16 +53,16 @@ class SunsetTimeWidget extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 12
+              fontSize: 11
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Text(
             'Lighting Up: $sunsetTime', // Display sunset time
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 12
+              fontSize: 11
             ),
           ),
           const SizedBox(height: 10),

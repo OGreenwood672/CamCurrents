@@ -240,14 +240,24 @@ class _DayState extends State<Day> {
                         ),
                         ],
                       ),
-                      Container(
-                        color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 110,
-                        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        child: widget.day==realDay ? null : const Text(
-                          "Note: This flag is a prediction, and not the actual flag for this day.\nIt is reccomended to double check the flag before any outings.",
+                      widget.day==realDay ? const SizedBox(height: 36,) : (
+                        Container(
+                          width: 150,
+                          padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 6),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(150, 0, 0, 0), // Background color
+                            borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                          ),
+                          child: const Text(
+                            "Prediction Flag",
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                          )
                         )
                       ),
+                      const SizedBox(height: 90,),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
                     ],
                   )
