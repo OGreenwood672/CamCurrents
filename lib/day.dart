@@ -209,7 +209,10 @@ class _DayState extends State<Day> {
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
-                        child: Flag(flagSize: flagSize, flag: getFlag(getHourlyForecast(widget.day)).toLowerCase()), //(widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
+                        child: Flag(
+                          flagSize: flagSize,
+                          flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
+                        ),
                       ),
                         IconButton(
                           iconSize: arrowSize,
@@ -221,6 +224,10 @@ class _DayState extends State<Day> {
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
                         height: 110,
+                        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        child: widget.day==realDay ? null : const Text(
+                          "Note: This flag is a prediction, and not the actual flag for this day.\nIt is reccomended to double check the flag before any outings.",
+                        )
                       ),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
                     ],
@@ -255,7 +262,7 @@ class _DayState extends State<Day> {
                               Expanded(
                                 child: Center(
                                   child: WindSpeedWidget(
-                                    windspeed: getWindSpeed(getHourlyForecast(widget.day)),
+                                    windspeed: "${getWindSpeed(getHourlyForecast(widget.day), getCurrentHour())} mph",
                                   ),
                                 ),
                               ),

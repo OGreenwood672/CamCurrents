@@ -14,11 +14,11 @@ String getPrecipitation(Map<int, dynamic>? hourlyForecast, int time) {
   return "${hourlyForecast[time]["precipitation"].round()}%";
 }
 
-String getTemp(Map<int, dynamic>? hourlyForecast, int time) {
+int getTemp(Map<int, dynamic>? hourlyForecast, int time) {
   if (hourlyForecast == null) {
-    return "-°C";
+    return 0;
   }
-  return "${hourlyForecast[time]["temperature"].round()}°";
+  return hourlyForecast[time]["temperature"].round();
 }
 
 String getWindDirection(Map<int, dynamic>? hourlyForecast) {
@@ -38,11 +38,11 @@ String getWindDirection(Map<int, dynamic>? hourlyForecast) {
   return "NORTH";
 }
 
-String getWindSpeed(Map<int, dynamic>? hourlyForecast) {
+double getWindSpeed(Map<int, dynamic>? hourlyForecast, int time) {
   if (hourlyForecast == null) {
-    return "- mph";
+    return 0;
   }
-  return "${hourlyForecast[getCurrentHour()]["wind_speed"]} mph";
+  return hourlyForecast[time]["wind_speed"];
 }
 
 String getHumidity(Map<int, dynamic>? hourlyForecast) {
@@ -85,4 +85,26 @@ String getFlag(Map<int, dynamic>? hourlyForecast) {
     return "grey";
   }
   return "${hourlyForecast[23]["flag"]}";
+}
+
+double getVisibility(Map<int, dynamic>? hourlyForecast){
+  if (hourlyForecast == null){
+    return 0;
+  }
+  return hourlyForecast[6]["visibility"];
+}
+
+String predictFlag(Map<int, dynamic>? hourlyForecast){
+  if (hourlyForecast == null) {
+    return "grey";
+  }
+
+  if (getWindSpeed(hourlyForecast, 6) >= 35 
+  || (getWindSpeed(hourlyForecast, 6) >= 25 && getTemp(hourlyForecast, 6) < 0)
+  //|| getVisibility(hourlyForecast) < 5 // This is not very accurate and doesn't play much of a role
+  ){
+    return "yellow";
+  }
+
+  return "green";
 }

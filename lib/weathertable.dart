@@ -36,8 +36,8 @@ class WeatherTable extends StatelessWidget {
             padding: const EdgeInsets.all(weatherCardPadding),
             child: WeatherCard(
               hour: hour,
-              precipitation: getPrecipitation(hourlyForecast, hour), // Replace with actual value
-              temperature: getTemp(hourlyForecast, hour), // Replace with actual value
+              precipitation: getPrecipitation(hourlyForecast, hour),
+              temperature: "${getTemp(hourlyForecast, hour)}°",
               width: weatherCardWidth,
             ),
           );
