@@ -10,21 +10,21 @@ int getCurrentHour() {
 
 
 String getPrecipitation(Map<int, dynamic>? hourlyForecast, int time) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[time] == null) {
     return "-%";
   }
   return "${hourlyForecast[time]["precipitation"].round()}%";
 }
 
 int getTemp(Map<int, dynamic>? hourlyForecast, int time) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[time] == null) {
     return 0;
   }
   return hourlyForecast[time]["temperature"].round();
 }
 
 String getWindDirection(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[getCurrentHour()] == null) {
     return "NORTH";
   }
   double windDirection = hourlyForecast[getCurrentHour()]["wind_direction"];
@@ -41,14 +41,14 @@ String getWindDirection(Map<int, dynamic>? hourlyForecast) {
 }
 
 double getWindSpeed(Map<int, dynamic>? hourlyForecast, int time) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[time] == null) {
     return 0;
   }
   return hourlyForecast[time]["wind_speed"];
 }
 
 String getHumidity(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[getCurrentHour()] == null) {
     return "-%";
   }
   return "${hourlyForecast[getCurrentHour()]["humidity"].round()}%";
@@ -77,14 +77,14 @@ String getSunset(Map<String, Map<String, dynamic>>? lightingTimes, int day) {
 }
 
 int getUVIndex(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[getCurrentHour()] == null) {
     return 0;
   }
   return hourlyForecast[getCurrentHour()]["uv_index"].round();
 }
 
 String getWaterLevel(Map<int, dynamic>? hourlyForecast) {
-  if (hourlyForecast == null) {
+  if (hourlyForecast == null || hourlyForecast[23] == null) {
     return "0m";
   }
   return "${hourlyForecast[23]["water_level"]}m";
@@ -98,7 +98,7 @@ String getFlag(Map<int, dynamic>? hourlyForecast) {
 }
 
 double getVisibility(Map<int, dynamic>? hourlyForecast){
-  if (hourlyForecast == null){
+  if (hourlyForecast == null || hourlyForecast[6] == null){
     return 0;
   }
   return hourlyForecast[6]["visibility"];
