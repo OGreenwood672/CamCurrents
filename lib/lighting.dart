@@ -23,7 +23,6 @@ Future<Map<String, Map<String, dynamic>>> getLighting() async {
     }
     result[row[0].toString()] = entry;
   }
-  print(result);
   return result;
 }
 
