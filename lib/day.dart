@@ -168,7 +168,7 @@ class _DayState extends State<Day> {
     for (int i=0; i<numberDaysShown; i++){
       destinations.add(buildNavigationDestination(i));
     }
-
+    
     return Scaffold(
       appBar: null,
       body: GestureDetector(
@@ -252,7 +252,7 @@ class _DayState extends State<Day> {
                         ),
                         ],
                       ),
-                      widget.day==realDay ? const SizedBox(height: 36,) : (
+                      widget.day==0 ? const SizedBox(height: 36,) : (
                         Container(
                           width: 150,
                           padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 6),
