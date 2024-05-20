@@ -7,7 +7,13 @@ import 'package:intl/intl.dart';
 //* Get Hourly Forecast of Day by Date
 Future<List<dynamic>?> fetchForecast(String date) async {
   try {
-    var resp = await http.get(Uri.parse('https://cam-currents-backend-ogreenwood672s-projects.vercel.app/get-data-by-date?date=$date'));
+    var headers = {
+      "Access-Control-Allow-Origin": "*",
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    };
+    var resp = await http.get(Uri.parse('https://cam-currents-backend-ogreenwood672s-projects.vercel.app/get-data-by-date?date=$date'), headers: headers);
+    // var resp = await http.get(Uri.https('cam-currents-backend-ogreenwood672s-projects.vercel.app', 'get-data-by-date?date=$date'));
 
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body);
