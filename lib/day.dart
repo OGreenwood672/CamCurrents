@@ -31,6 +31,8 @@ class _DayState extends State<Day> {
   double flagSize = 100;
   double arrowSize = 75;
 
+  late final ScrollController _controller;
+
   bool night = false;
 
   bool isFetching = false;
@@ -46,6 +48,7 @@ class _DayState extends State<Day> {
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController();
     
     if (widget.weatherData == null) {
       Future<Map<int, dynamic>?> futureForecast = getForcast();
@@ -135,6 +138,14 @@ class _DayState extends State<Day> {
     }
   }
 
+  void _scrollDown() {
+    _controller.animateTo(
+      _controller.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 2000),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   Widget buildNavigationDestination(int day) {
     return NavigationDestination(
       selectedIcon: ColorFiltered(
@@ -173,6 +184,7 @@ class _DayState extends State<Day> {
           }
         },
         child: SingleChildScrollView(
+          controller: _controller,
           child: Column( //Whole Page Column
             children: [
               Stack( // Top Page
@@ -259,7 +271,11 @@ class _DayState extends State<Day> {
                       ),
                       const SizedBox(height: 70,),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
-                      const Arrow(direction: "down", arrowSize: 50, visible: true,),
+                      IconButton(
+                        iconSize: arrowSize,
+                        onPressed: _scrollDown,
+                        icon: Arrow(arrowSize: arrowSize, direction: 'down', visible: true),
+                    ),
                     ],
                   )
                 ],
