@@ -12,7 +12,7 @@ Future<List<List>> _readCSV(String path) async {
   return listData;
 }
 
-Future<Map<String, Map<String, dynamic>>> getLighting() async {
+Future<Map<String, Map<String, dynamic>>?> getLighting() async {
   List<List<dynamic>> listData = await _readCSV("assets/lightings.csv");
   Map<String, Map<String, dynamic>> result = {};
   
@@ -22,6 +22,9 @@ Future<Map<String, Map<String, dynamic>>> getLighting() async {
       entry[listData[0][i]] = row[i];
     }
     result[row[0].toString()] = entry;
+  }
+  if (result.isEmpty) {
+    return null;
   }
   return result;
 }

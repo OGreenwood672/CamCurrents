@@ -64,7 +64,7 @@ class _DayState extends State<Day> {
 
     if (widget.lightingTimes == null){
 
-      Future<Map<String, Map<String, dynamic>>> futureLighting = getLighting();
+      Future<Map<String, Map<String, dynamic>>?> futureLighting = getLighting();
       futureLighting.then((data) {
         try {
           setState(() {
@@ -225,14 +225,14 @@ class _DayState extends State<Day> {
                           icon: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
                         ),
                         Container(
-                        width: flagSize,
-                        height: flagSize,
-                        alignment: Alignment.center,
-                        child: Flag(
-                          flagSize: flagSize,
-                          flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
+                          width: flagSize,
+                          height: flagSize,
+                          alignment: Alignment.center,
+                          child: Flag(
+                            flagSize: flagSize,
+                            flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
+                          ),
                         ),
-                      ),
                         IconButton(
                           iconSize: arrowSize,
                           onPressed: rightArrowPress,
@@ -257,8 +257,9 @@ class _DayState extends State<Day> {
                           )
                         )
                       ),
-                      const SizedBox(height: 90,),
+                      const SizedBox(height: 70,),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
+                      const Arrow(direction: "down", arrowSize: 50, visible: true,),
                     ],
                   )
                 ],
