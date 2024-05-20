@@ -64,7 +64,7 @@ class _DayState extends State<Day> {
 
     if (widget.lightingTimes == null){
 
-      Future<Map<String, Map<String, dynamic>>> futureLighting = getLighting();
+      Future<Map<String, Map<String, dynamic>>?> futureLighting = getLighting();
       futureLighting.then((data) {
         try {
           setState(() {
@@ -225,14 +225,14 @@ class _DayState extends State<Day> {
                           icon: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
                         ),
                         Container(
-                        width: flagSize,
-                        height: flagSize,
-                        alignment: Alignment.center,
-                        child: Flag(
-                          flagSize: flagSize,
-                          flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
+                          width: flagSize,
+                          height: flagSize,
+                          alignment: Alignment.center,
+                          child: Flag(
+                            flagSize: flagSize,
+                            flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
+                          ),
                         ),
-                      ),
                         IconButton(
                           iconSize: arrowSize,
                           onPressed: rightArrowPress,
@@ -240,15 +240,26 @@ class _DayState extends State<Day> {
                         ),
                         ],
                       ),
-                      Container(
-                        color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 110,
-                        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        child: widget.day==realDay ? null : const Text(
-                          "Note: This flag is a prediction, and not the actual flag for this day.\nIt is reccomended to double check the flag before any outings.",
+                      widget.day==realDay ? const SizedBox(height: 36,) : (
+                        Container(
+                          width: 150,
+                          padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 6),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(150, 0, 0, 0), // Background color
+                            borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                          ),
+                          child: const Text(
+                            "Prediction Flag",
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                          )
                         )
                       ),
+                      const SizedBox(height: 70,),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
+                      const Arrow(direction: "down", arrowSize: 50, visible: true,),
                     ],
                   )
                 ],
