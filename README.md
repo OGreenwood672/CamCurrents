@@ -86,6 +86,11 @@
       <td>1</td>
       <td>Fixed data collection and moved flag to different file</td>
     </tr>
+    <tr>
+      <td>19/5/24</td>
+      <td>1</td>
+      <td>Added flag predictor</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>

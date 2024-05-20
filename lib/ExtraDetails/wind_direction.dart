@@ -9,7 +9,7 @@ class WindDirectionWidget extends StatelessWidget {
     super.key,
     required this.windDirection,
     this.width = 400, // Default width
-    this.height = 100, // Default height
+    this.height = 105, // Default height
   });
 
   @override

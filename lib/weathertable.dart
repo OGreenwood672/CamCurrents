@@ -30,7 +30,7 @@ class WeatherTable extends StatelessWidget {
       height: 220,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        controller: ScrollController(initialScrollOffset: offset*(weatherCardWidth+2*weatherCardPadding), keepScrollOffset: false),
+        controller: ScrollController(initialScrollOffset: offset*(weatherCardWidth + 2 * weatherCardPadding + 7), keepScrollOffset: false),
         children: hours.map((hour) {
           return Padding(
             padding: const EdgeInsets.all(weatherCardPadding),

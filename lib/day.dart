@@ -209,7 +209,7 @@ class _DayState extends State<Day> {
                         width: flagSize,
                         height: flagSize,
                         alignment: Alignment.center,
-                        child: Flag(flagSize: flagSize, flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
+                        child: Flag(flagSize: flagSize, flag: getFlag(getHourlyForecast(widget.day)).toLowerCase()), //(widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : "grey")),
                       ),
                         IconButton(
                           iconSize: arrowSize,
