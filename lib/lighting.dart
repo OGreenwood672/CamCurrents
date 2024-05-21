@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 Future<List<List>> _readCSV(String path) async {
   final rawData = await rootBundle.loadString(path);
   List<List<dynamic>> listData = const CsvToListConverter(
-    eol: "\n",
+    eol: "\n", // Comment this out if you are getting a null error on "Lighting_up"
   ).convert(rawData);
   return listData;
 }
