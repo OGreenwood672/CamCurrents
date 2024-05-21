@@ -27,17 +27,17 @@ class HumidityWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "Humidity",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: MediaQuery.of(context).size.width * 0.045,
                 color: Colors.white70,
               ),
             ),
             Text(
               humidity,
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.045,
                 color: Colors.white,
               ),
             ),

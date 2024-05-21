@@ -27,9 +27,9 @@ class Day extends StatefulWidget {
 
 class _DayState extends State<Day> {
 
-  double dayIconSize = 30;
-  double flagSize = 100;
-  double arrowSize = 75;
+  double dayIconSize = 0.1;
+  double flagSize = 0.23;
+  double arrowSize = 0.17;
 
   late final ScrollController _controller;
 
@@ -96,7 +96,7 @@ class _DayState extends State<Day> {
       return _weatherData?[day]["hourly_forecast"];
   }
   
-  AssetImage chooseBg(){
+  AssetImage chooseBg() {
     int currentHour = DateTime.now().hour;
     if (currentHour >= 20 || currentHour <= 3){
       night = true;
@@ -146,17 +146,21 @@ class _DayState extends State<Day> {
     );
   }
 
-  Widget buildNavigationDestination(int day) {
+  Widget buildNavigationDestination(BuildContext context, int day) {
     return NavigationDestination(
       selectedIcon: ColorFiltered(
         colorFilter: const ColorFilter.mode(Color.fromARGB(255, 255, 255, 234), BlendMode.srcIn),
         child: Image.asset(
           'assets/icons/${getDay(day).toLowerCase()}.png',
-          width: dayIconSize,
-          height: dayIconSize,
+          width: MediaQuery.of(context).size.width * dayIconSize,
+          height: MediaQuery.of(context).size.width * dayIconSize,
         ),
       ),
-      icon: Image.asset('assets/icons/${getDay(day).toLowerCase()}.png', width: dayIconSize, height: dayIconSize),
+      icon: Image.asset(
+        'assets/icons/${getDay(day).toLowerCase()}.png',
+        width: MediaQuery.of(context).size.width * dayIconSize,
+        height: MediaQuery.of(context).size.width * dayIconSize
+      ),
       label: "",
     );
   }
@@ -166,7 +170,7 @@ class _DayState extends State<Day> {
 
     List<Widget> destinations = [];
     for (int i=0; i<numberDaysShown; i++){
-      destinations.add(buildNavigationDestination(i));
+      destinations.add(buildNavigationDestination(context, i));
     }
     
     return Scaffold(
@@ -207,7 +211,7 @@ class _DayState extends State<Day> {
                       // Top section
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 100,
+                        height: MediaQuery.of(context).size.height * 0.125,
                       ),
                       Container(
                         padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0, bottom: 10.0), // Padding to give some space around the text
@@ -219,7 +223,7 @@ class _DayState extends State<Day> {
                           child: Text(
                             getDay(widget.day),
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: MediaQuery.of(context).size.width * 0.07,
                               color: night ? Colors.white : Colors.black
                             ),
                           ),
@@ -227,28 +231,28 @@ class _DayState extends State<Day> {
                       ),
                       Container(
                         color: const Color.fromARGB(0, 0, 0, 0),
-                        height: 40,
+                        height: MediaQuery.of(context).size.height * 0.065,
                       ),
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                         IconButton(
-                          iconSize: arrowSize,
+                          iconSize: MediaQuery.of(context).size.width * arrowSize,
                           onPressed: leftArrowPress,
-                          icon: Arrow(arrowSize: arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
+                          icon: Arrow(arrowSize: MediaQuery.of(context).size.width * arrowSize, direction: 'left', visible: (widget.day > 0 ? true : false)),
                         ),
                         Container(
-                          width: flagSize,
-                          height: flagSize,
+                          width: MediaQuery.of(context).size.width * flagSize,
+                          height: MediaQuery.of(context).size.width * flagSize,
                           alignment: Alignment.center,
                           child: Flag(
-                            flagSize: flagSize,
+                            flagSize: MediaQuery.of(context).size.width * flagSize,
                             flag: (widget.day == 0 ? getFlag(getHourlyForecast(widget.day)).toLowerCase() : predictFlag(getHourlyForecast(widget.day))),
                           ),
                         ),
                         IconButton(
-                          iconSize: arrowSize,
+                          iconSize: MediaQuery.of(context).size.width * arrowSize,
                           onPressed: rightArrowPress,
-                          icon: Arrow(arrowSize: arrowSize, direction: 'right', visible: (widget.day < numberDaysShown - 1 ? true : false)),
+                          icon: Arrow(arrowSize: MediaQuery.of(context).size.width * arrowSize, direction: 'right', visible: (widget.day < numberDaysShown - 1 ? true : false)),
                         ),
                         ],
                       ),
@@ -269,12 +273,12 @@ class _DayState extends State<Day> {
                           )
                         )
                       ),
-                      const SizedBox(height: 70,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.07,),
                       WeatherTable(hourlyForecast: getHourlyForecast(widget.day), day: widget.day),
                       IconButton(
-                        iconSize: arrowSize,
+                        iconSize: MediaQuery.of(context).size.width * arrowSize,
                         onPressed: _scrollDown,
-                        icon: Arrow(arrowSize: arrowSize, direction: 'down', visible: true),
+                        icon: Arrow(arrowSize: MediaQuery.of(context).size.width * arrowSize, direction: 'down', visible: true),
                     ),
                     ],
                   )
@@ -376,7 +380,7 @@ class _DayState extends State<Day> {
         selectedIndex: widget.day,
         destinations: destinations,
         backgroundColor: const Color.fromRGBO(0, 74, 126, 1),
-        indicatorColor: const Color.fromRGBO(0, 141, 199, 1),
+        indicatorColor: const Color.fromRGBO(0, 141, 199, 0),
         indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         
       ),
