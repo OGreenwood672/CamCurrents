@@ -25,7 +25,7 @@ class SunsetTimeWidget extends StatelessWidget {
       stop2 = double.parse((sunriseMinutes / (24 * 60)).toStringAsFixed(3));
       // Parse sunset time
       List<String> sunsetParts = sunsetTime!.split(':');
-      int sunsetMinutes = (12 + int.parse(sunsetParts[0])) * 60 + int.parse(sunsetParts[1]);
+      int sunsetMinutes = (int.parse(sunsetParts[0])) * 60 + int.parse(sunsetParts[1]);
       stop3 = double.parse((sunsetMinutes / (24 * 60)).toStringAsFixed(3));
       // Assuming currentTime represents the current time of day
       DateTime currentTime = DateTime.now();
@@ -50,22 +50,22 @@ class SunsetTimeWidget extends StatelessWidget {
         children: [
           Text(
             'Lighting Down: $sunriseTime', // Display sunrise time
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 11
+              fontSize: MediaQuery.of(context).size.width * 0.028
             ),
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.01),
           Text(
             'Lighting Up: $sunsetTime', // Display sunset time
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 11
+              fontSize: MediaQuery.of(context).size.width * 0.028
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.025),
           Stack(
             children: [
               Container(

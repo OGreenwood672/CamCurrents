@@ -27,18 +27,18 @@ class WindSpeedWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "Wind Speed",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: MediaQuery.of(context).size.width * 0.045,
                 //fontWeight:FontWeight.bold,
                 color: Colors.white70,
               ),
             ),
             Text(
               windspeed,
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.045,
                 color: Colors.white,
               ),
             ),
