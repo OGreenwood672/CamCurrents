@@ -91,6 +91,11 @@
       <td>1</td>
       <td>Added flag predictor</td>
     </tr>
+    <tr>
+      <td>20/5/24</td>
+      <td>2</td>
+      <td>Fixed bug, fixed app to now work on multiple devices, and also can now get data on browser</td>
+    </tr>
     <!-- Add more rows as needed -->
   </tbody>
 </table>
@@ -255,9 +260,14 @@
       <td>Worked on the weather table, as well as data integration</td>
     </tr>
     <tr>
-      <td>19/5/24</td>
+      <td>17/5/24</td>
       <td>1</td>
       <td>Finished weather table scrolling offset, seperated flag spritesheet and added to app</td>
+    </tr>
+    <tr>
+      <td>19/5/24</td>
+      <td>1</td>
+      <td>Finished flag</td>
     </tr>
     <tr>
       <td>20/5/24</td>

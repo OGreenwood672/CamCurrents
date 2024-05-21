@@ -50,22 +50,22 @@ class SunsetTimeWidget extends StatelessWidget {
         children: [
           Text(
             'Lighting Down: $sunriseTime', // Display sunrise time
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 11
+              fontSize: MediaQuery.of(context).size.width * 0.028
             ),
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.01),
           Text(
             'Lighting Up: $sunsetTime', // Display sunset time
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 11
+              fontSize: MediaQuery.of(context).size.width * 0.028
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.025),
           Stack(
             children: [
               Container(

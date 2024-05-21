@@ -23,12 +23,13 @@ class UVIndexWidget extends StatelessWidget {
         children: [
           Text(
             'UV: $uvIndex',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+            style: TextStyle(
+              // fontWeight: FontWeight.bold,
               color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width * 0.045
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.01),
           Text(
             _getUVLevel(uvIndex),
             style: const TextStyle(
