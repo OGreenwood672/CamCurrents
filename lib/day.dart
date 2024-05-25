@@ -30,6 +30,7 @@ class _DayState extends State<Day> {
   double dayIconSize = 0.1;
   double flagSize = 0.23;
   double arrowSize = 0.17;
+  double iconSize = 0.2;
 
   late final ScrollController _controller;
 
@@ -84,7 +85,7 @@ class _DayState extends State<Day> {
 
   String getDay(day) {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    return days[(day+realDay)%7];
+    return days[ ( day + realDay ) % 7 ];
   }
 
   Map<int, dynamic>? getHourlyForecast(day) {
@@ -175,13 +176,20 @@ class _DayState extends State<Day> {
     
     return Scaffold(
       appBar: null,
-      body: (_weatherData == null)
+      body: (_weatherData == null || _lightingTimes == null)
         ? Center(
-          child: Image.asset(
-            'assets/icons/app_icon.png',
-            width: MediaQuery.of(context).size.width * arrowSize,
-            height: MediaQuery.of(context).size.width * arrowSize,
-          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/icons/app_icon.png',
+                width: MediaQuery.of(context).size.width * iconSize,
+                height: MediaQuery.of(context).size.width * iconSize
+              ),
+              const SizedBox(height: 30,),
+              const CircularProgressIndicator(),
+            ]
+          )
         )
         : GestureDetector(
           onHorizontalDragEnd: (details) {
@@ -374,9 +382,10 @@ class _DayState extends State<Day> {
             )
         ),
       
-        bottomNavigationBar: _weatherData == null
-        ? Container()
+        bottomNavigationBar: ( _weatherData == null || _lightingTimes == null )
+        ? const SizedBox()
         : NavigationBar(
+        // bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
               if (index == widget.day) {return;}
